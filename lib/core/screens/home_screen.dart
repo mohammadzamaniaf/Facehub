@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '/core/constants/app_colors.dart';
 import '/core/constants/constants.dart';
+import '/features/feed/presentation/screens/news_feed_screen.dart';
+import '/features/feed/presentation/widgets/messenger_widget.dart';
+import '/features/feed/presentation/widgets/search_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -8,24 +12,30 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 5,
+      length: 6,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Feed'),
+          backgroundColor: Colors.white,
+          title: buildFacebookText(),
+          actions: const [
+            SearchWidget(),
+            MessengerWidget(),
+          ],
           bottom: const TabBar(
             tabs: FeedConstants.homeScreenAppBarTabs,
           ),
         ),
         body: const TabBarView(
           children: [
+            NewsFeedScreen(),
             Center(
-              child: Text('Feed'),
+              child: Text('Friends'),
             ),
             Center(
               child: Text('Videos'),
             ),
             Center(
-              child: Text('Community'),
+              child: Text('Profile'),
             ),
             Center(
               child: Text('Notifications'),
@@ -39,3 +49,12 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+
+Widget buildFacebookText() => const Text(
+      'facebook',
+      style: TextStyle(
+        fontSize: 30,
+        color: AppColors.blueColor,
+        fontWeight: FontWeight.bold,
+      ),
+    );

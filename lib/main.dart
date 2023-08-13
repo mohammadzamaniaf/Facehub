@@ -1,3 +1,4 @@
+import 'package:facehub/config/themes/app_theme.dart';
 import 'package:flutter/material.dart';
 
 import '/core/screens/home_screen.dart';
@@ -11,9 +12,10 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      theme: AppTheme.appTheme(),
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: const HomeScreen(),
     );
   }
 }
