@@ -9,21 +9,25 @@ class StoriesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // https://picsum.photos/200/300?random=$number
-    return Container(
-      color: Colors.white,
-      height: 200,
-      child: ListView.builder(
-        itemCount: 10,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          if (index == 0) {
-            return const CreateStoryWidget();
-          }
+    return SliverToBoxAdapter(
+      child: Container(
+        color: Colors.white,
+        height: 200,
+        child: ListView.builder(
+          itemCount: 10,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            if (index == 0) {
+              // Add Story button
+              return const CreateStoryWidget();
+            }
 
-          return StoryWidget(
-            index: index,
-          );
-        },
+            // Story Tile
+            return StoryWidget(
+              index: index,
+            );
+          },
+        ),
       ),
     );
   }

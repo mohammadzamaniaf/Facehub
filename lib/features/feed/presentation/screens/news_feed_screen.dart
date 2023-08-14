@@ -1,7 +1,9 @@
-import 'package:facehub/features/feed/presentation/widgets/stories_view.dart';
 import 'package:flutter/material.dart';
 
+import '/features/feed/presentation/models/post.dart';
 import '/features/feed/presentation/widgets/feed_make_post_widget.dart';
+import '/features/feed/presentation/widgets/post_tile.dart';
+import '/features/feed/presentation/widgets/stories_view.dart';
 
 class NewsFeedScreen extends StatelessWidget {
   const NewsFeedScreen({super.key});
@@ -9,18 +11,26 @@ class NewsFeedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('News Feed Screen rebuilt');
-    return Column(
-      children: [
+    return CustomScrollView(
+      slivers: [
         // What's on your mind
-        FeedMakePostWidget(),
-        SizedBox(height: 8),
+        const FeedMakePostWidget(),
+        const SliverToBoxAdapter(child: SizedBox(height: 8)),
 
         // Stories
         const StoriesView(),
-        const SizedBox(height: 8),
-        Container(
-          height: 100,
-          color: Colors.white,
+        const SliverToBoxAdapter(child: SizedBox(height: 8)),
+
+        // Posts
+        SliverList.separated(
+          itemCount: fakePosts.length,
+          separatorBuilder: (context, index) => const SizedBox(height: 8),
+          itemBuilder: (context, index) {
+            final post = fakePosts[index];
+            return PostTile(
+              post: post,
+            );
+          },
         ),
       ],
     );

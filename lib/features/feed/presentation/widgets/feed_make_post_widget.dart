@@ -12,27 +12,29 @@ class FeedMakePostWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: 10,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const RoundProfileTile(url: Constants.maleProfilePic),
-            _buildPostTextField(),
-            IconButton(
-              onPressed: () {
-                // TODO: Navigate to make post screen
-              },
-              icon: const FaIcon(
-                FontAwesomeIcons.solidImages,
-                color: Colors.green,
+    return SliverToBoxAdapter(
+      child: Container(
+        color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: 10,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const RoundProfileTile(url: Constants.maleProfilePic),
+              _buildPostTextField(),
+              IconButton(
+                onPressed: () {
+                  // TODO: Navigate to make post screen
+                },
+                icon: const FaIcon(
+                  FontAwesomeIcons.solidImages,
+                  color: Colors.green,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
