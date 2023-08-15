@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:timeago/timeago.dart' as timeago;
 import 'package:facehub/core/widgets/icon_text_button.dart';
 import 'package:facehub/core/widgets/round_like_iocn.dart';
 import 'package:flutter/material.dart';
@@ -20,11 +21,20 @@ class PostTile extends StatelessWidget {
     return Container(
       color: Colors.white,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Post Header part
           PostHeader(
             posterId: post.posterId,
             datePublished: post.datePublished,
+          ),
+          // Post Text
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 15,
+              vertical: 5,
+            ),
+            child: Text(post.content),
           ),
           // Image Part
           SizedBox(
@@ -64,7 +74,7 @@ class PostButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return const Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         IconTextButton(icon: FontAwesomeIcons.solidThumbsUp, label: 'Like'),
@@ -115,18 +125,19 @@ class PostHeader extends StatelessWidget {
         horizontal: 15,
         vertical: 8,
       ),
-      child: const Row(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          CircleAvatar(
+          const CircleAvatar(
             backgroundImage: NetworkImage(
-                'https://fakeimg.pl/350x200/?text=World&font=lobster'),
+              'https://fakeimg.pl/350x200/?text=World&font=lobster',
+            ),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'Mike Dane',
                 style: TextStyle(
                   fontSize: 16,
@@ -134,16 +145,16 @@ class PostHeader extends StatelessWidget {
                 ),
               ),
               Text(
-                'OCT 4, 2023',
-                style: TextStyle(
+                timeago.format(datePublished),
+                style: const TextStyle(
                   fontSize: 14,
                   color: Colors.grey,
                 ),
               ),
             ],
           ),
-          Spacer(),
-          Icon(Icons.more_horiz),
+          const Spacer(),
+          const Icon(Icons.more_horiz),
         ],
       ),
     );

@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   font_awesome_flutter: ^10.5.0
+  timeago: ^3.5.0
 
 dev_dependencies:
   flutter_test:
@@ -18,3 +19,8 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+
+  assets:
+    - assets/images/
+    - assets/icons/

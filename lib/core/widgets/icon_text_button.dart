@@ -16,7 +16,7 @@ class IconTextButton extends StatelessWidget {
     return Row(
       children: [
         FaIcon(icon, size: 20),
-        const SizedBox(width: 5),
+        const SizedBox(width: 8),
         Text(label),
       ],
     );

@@ -1,4 +1,5 @@
 import 'package:facehub/config/themes/app_theme.dart';
+import 'package:facehub/features/auth/presentation/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
 import '/core/screens/home_screen.dart';
@@ -15,7 +16,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       theme: AppTheme.appTheme(),
       debugShowCheckedModeBanner: false,
-      home: const HomeScreen(),
+      home: const LoginScreen(),
     );
   }
 }
