@@ -7,6 +7,18 @@ class AppTheme {
     return ThemeData(
       buttonTheme: buttonTheme(),
       iconButtonTheme: iconButtonTheme(),
+      appBarTheme: appBarTheme(),
+    );
+  }
+
+  // AppBar theme
+  static AppBarTheme? appBarTheme() {
+    return const AppBarTheme(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      iconTheme: IconThemeData(
+        color: AppColors.blackColor,
+      ),
     );
   }
 

@@ -6,9 +6,9 @@ class RoundTextField extends StatelessWidget {
     Key? key,
     required this.controller,
     required this.hintText,
-    required this.keyboardType,
     required this.textInputAction,
     this.isPassword = false,
+    this.keyboardType = TextInputType.text,
   }) : super(key: key);
 
   final TextEditingController controller;
@@ -24,7 +24,9 @@ class RoundTextField extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hintText,
         border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
+          borderRadius: BorderRadius.all(
+            Radius.circular(10),
+          ),
         ),
       ),
       obscureText: isPassword,

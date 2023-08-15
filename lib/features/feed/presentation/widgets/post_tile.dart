@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:timeago/timeago.dart' as timeago;
+import 'package:jiffy/jiffy.dart';
 import 'package:facehub/core/widgets/icon_text_button.dart';
 import 'package:facehub/core/widgets/round_like_iocn.dart';
 import 'package:flutter/material.dart';
@@ -145,7 +145,7 @@ class PostHeader extends StatelessWidget {
                 ),
               ),
               Text(
-                timeago.format(datePublished),
+                Jiffy.parseFromDateTime(datePublished).fromNow(),
                 style: const TextStyle(
                   fontSize: 14,
                   color: Colors.grey,

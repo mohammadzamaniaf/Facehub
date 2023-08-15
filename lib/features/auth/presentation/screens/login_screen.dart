@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '/core/constants/paddings.dart';
+import '/features/auth/presentation/screens/create_account_screen.dart';
 import '/features/auth/presentation/widgets/round_button.dart';
 import '/features/auth/presentation/widgets/round_text_field.dart';
 
@@ -33,10 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       // backgroundColor: AppColors.loginScreenColor,
       body: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 15,
-          vertical: 10,
-        ),
+        padding: Paddings.defaultPadding,
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -78,7 +77,11 @@ class _LoginScreenState extends State<LoginScreen> {
             Column(
               children: [
                 RoundButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(
+                      CreateAccountScreen.routeName,
+                    );
+                  },
                   label: 'Create new account',
                   color: Colors.transparent,
                 ),
