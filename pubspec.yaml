@@ -7,11 +7,16 @@ environment:
   sdk: '>=3.0.6 <4.0.0'
 
 dependencies:
+  cloud_firestore: ^4.8.4
+  firebase_auth: ^4.7.2
+  firebase_core: ^2.15.0
+  firebase_storage: ^11.2.5
   flutter:
     sdk: flutter
   flutter_holo_date_picker: ^1.1.0
   font_awesome_flutter: ^10.5.0
   jiffy: ^6.2.1
+  uuid: ^3.0.7
   # timeago: ^3.5.0
 
 dev_dependencies:

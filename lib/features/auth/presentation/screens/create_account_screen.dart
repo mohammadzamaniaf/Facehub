@@ -1,10 +1,10 @@
-import 'package:facehub/features/auth/presentation/screens/verify_email_screen.dart';
-import 'package:facehub/features/auth/presentation/screens/verify_otp_screen.dart';
 import 'package:flutter/material.dart';
 
 import '/core/constants/app_colors.dart';
 import '/core/constants/paddings.dart';
 import '/core/constants/utils/utils.dart';
+import '/features/auth/presentation/screens/verify_email_screen.dart';
+import '/features/auth/presentation/screens/verify_otp_screen.dart';
 import '/features/auth/presentation/widgets/birthday_picker.dart';
 import '/features/auth/presentation/widgets/gender_picker.dart';
 import '/features/auth/presentation/widgets/round_button.dart';

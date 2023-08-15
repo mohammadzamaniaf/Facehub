@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "704515777401",
+    "project_id": "facehub121314",
+    "storage_bucket": "facehub121314.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:704515777401:android:82e6cf057e2bede0e785a8",
+        "android_client_info": {
+          "package_name": "com.codehq.facehub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "704515777401-lvv5uod82l4v5eiitnf7em4gvav36jqq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7zCquDGpMR0rOzImbNxU5rOFPTjEsAWw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "704515777401-lvv5uod82l4v5eiitnf7em4gvav36jqq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
