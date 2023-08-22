@@ -1,6 +1,8 @@
 // likes and comments for each post have their own collections.
 // But we still store the likes count
 
+import '/core/constants/firebase_field_names.dart';
+
 class Post {
   final String postId;
   final String posterId;
@@ -20,24 +22,25 @@ class Post {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'postId': postId,
-      'posterId': posterId,
-      'content': content,
-      'imageUrls': imageUrls,
-      'datePublished': datePublished.millisecondsSinceEpoch,
-      'likesCount': likesCount,
+      FirebaseFieldNames.postId: postId,
+      FirebaseFieldNames.posterId: posterId,
+      FirebaseFieldNames.content: content,
+      FirebaseFieldNames.imageUrls: imageUrls,
+      FirebaseFieldNames.datePublished: datePublished.millisecondsSinceEpoch,
+      FirebaseFieldNames.likesCount: likesCount,
     };
   }
 
   factory Post.fromMap(Map<String, dynamic> map) {
     return Post(
-      postId: map['postId'] as String,
-      posterId: map['posterId'] as String,
-      content: map['content'] as String,
-      imageUrls: List<String>.from((map['imageUrls'] as List<String>)),
-      datePublished:
-          DateTime.fromMillisecondsSinceEpoch(map['datePublished'] as int),
-      likesCount: map['likesCount'] as int,
+      postId: map[FirebaseFieldNames.postId] as String,
+      posterId: map[FirebaseFieldNames.posterId] as String,
+      content: map[FirebaseFieldNames.content] as String,
+      imageUrls: List<String>.from(
+          (map[FirebaseFieldNames.imageUrls] as List<String>)),
+      datePublished: DateTime.fromMillisecondsSinceEpoch(
+          map[FirebaseFieldNames.datePublished] as int),
+      likesCount: map[FirebaseFieldNames.likesCount] as int,
     );
   }
 }

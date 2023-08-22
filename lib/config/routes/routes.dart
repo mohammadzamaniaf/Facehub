@@ -1,10 +1,10 @@
+import 'package:facehub/features/auth/presentation/screens/login_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '/core/screens/error_screen.dart';
 import '/features/auth/presentation/screens/create_account_screen.dart';
 import '/features/auth/presentation/screens/verify_email_screen.dart';
-import '/features/auth/presentation/screens/verify_otp_screen.dart';
 
 class Routes {
   static Route onGenerateRoute(RouteSettings settings) {
@@ -12,9 +12,16 @@ class Routes {
       case CreateAccountScreen.routeName:
         return _cupertinoRoute(const CreateAccountScreen());
       case VerifyEmailScreen.routeName:
-        return _cupertinoRoute(const VerifyEmailScreen());
-      case VerifyOTPScreen.routeName:
-        return _cupertinoRoute(const VerifyOTPScreen());
+        final email = settings.arguments as String;
+        return _cupertinoRoute(
+          VerifyEmailScreen(
+            email: email,
+          ),
+        );
+      case LoginScreen.routeName:
+        return _cupertinoRoute(
+          const LoginScreen(),
+        );
 
       default:
         return _materialRoute(

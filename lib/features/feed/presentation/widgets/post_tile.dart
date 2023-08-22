@@ -6,7 +6,7 @@ import 'package:facehub/core/widgets/round_like_iocn.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '/features/feed/presentation/models/post.dart';
+import '../../data/models/post.dart';
 
 class PostTile extends StatelessWidget {
   const PostTile({

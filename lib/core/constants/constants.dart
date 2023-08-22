@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '/features/feed/presentation/screens/news_feed_screen.dart';
+import '/features/settings/presentation/screens/settings_screen.dart';
 
 class Constants {
   static const String maleProfilePic =
@@ -64,9 +65,7 @@ class Constants {
     Center(
       child: Text('Notifications'),
     ),
-    Center(
-      child: Text('Settings'),
-    ),
+    SettingsScreen(),
   ];
 
   Constants._();

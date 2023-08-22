@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '/features/feed/presentation/models/post.dart';
+import '../../data/models/post.dart';
 import '/features/feed/presentation/widgets/feed_make_post_widget.dart';
 import '/features/feed/presentation/widgets/post_tile.dart';
 import '/features/feed/presentation/widgets/stories_view.dart';
@@ -10,7 +10,6 @@ class NewsFeedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('News Feed Screen rebuilt');
     return CustomScrollView(
       slivers: [
         // What's on your mind

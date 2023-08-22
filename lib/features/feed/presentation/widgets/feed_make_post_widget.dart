@@ -25,9 +25,7 @@ class FeedMakePostWidget extends StatelessWidget {
               const RoundProfileTile(url: Constants.maleProfilePic),
               _buildPostTextField(),
               IconButton(
-                onPressed: () {
-                  // TODO: Navigate to make post screen
-                },
+                onPressed: () {},
                 icon: const FaIcon(
                   FontAwesomeIcons.solidImages,
                   color: Colors.green,

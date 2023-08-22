@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 final today = DateTime.now();
 // 18 years ago
@@ -22,4 +24,30 @@ Future<DateTime?> pickSimpleDate({
   );
 
   return dateTime;
+}
+
+// show Snack Bar
+void showSnackBar({
+  required String title,
+  required BuildContext context,
+}) {
+  ScaffoldMessenger.of(context)
+    ..removeCurrentSnackBar()
+    ..showSnackBar(
+      SnackBar(
+        content: Text(title),
+      ),
+    );
+}
+
+void showToastMessage({
+  required String text,
+}) {
+  Fluttertoast.showToast(
+    msg: text,
+    backgroundColor: Colors.black54,
+    fontSize: 18,
+    toastLength: Toast.LENGTH_LONG,
+    gravity: ToastGravity.BOTTOM,
+  );
 }

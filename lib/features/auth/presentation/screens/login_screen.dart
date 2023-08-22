@@ -1,20 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '/core/constants/paddings.dart';
 import '/features/auth/presentation/screens/create_account_screen.dart';
 import '/features/auth/presentation/widgets/round_button.dart';
 import '/features/auth/presentation/widgets/round_text_field.dart';
+import '/features/auth/providers/auth_providers.dart';
+import '/features/auth/utils/validators.dart';
 
-class LoginScreen extends StatefulWidget {
+final _formKey = GlobalKey<FormState>();
+
+class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
+  static const routeName = '/login';
+
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen> {
   late final TextEditingController _emailController;
   late final TextEditingController _passwordController;
+
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -28,6 +37,18 @@ class _LoginScreenState extends State<LoginScreen> {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
+  }
+
+  Future<void> login() async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      setState(() => isLoading = true);
+      await ref.read(authProvider).signIn(
+            email: _emailController.text.trim(),
+            password: _passwordController.text.trim(),
+          );
+      setState(() => isLoading = false);
+    }
   }
 
   @override
@@ -47,31 +68,41 @@ class _LoginScreenState extends State<LoginScreen> {
               width: 60,
             ),
             // Text Fields (Email and Password)
-            Column(
-              children: [
-                RoundTextField(
-                  controller: _emailController,
-                  hintText: 'Mobile number or email',
-                  keyboardType: TextInputType.emailAddress,
-                  textInputAction: TextInputAction.next,
-                ),
-                const SizedBox(height: 15),
-                RoundTextField(
-                  controller: _passwordController,
-                  hintText: 'Password',
-                  keyboardType: TextInputType.visiblePassword,
-                  textInputAction: TextInputAction.done,
-                  isPassword: true,
-                ),
-                const SizedBox(height: 15),
-                // Login Button
-                RoundButton(onPressed: () {}, label: 'Login'),
-                const SizedBox(height: 15),
-                const Text(
-                  'Forgot Password?',
-                  style: TextStyle(fontSize: 18),
-                ),
-              ],
+            Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  RoundTextField(
+                    controller: _emailController,
+                    hintText: 'Email',
+                    keyboardType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.next,
+                    validator: validateEmail,
+                  ),
+                  const SizedBox(height: 15),
+                  RoundTextField(
+                    controller: _passwordController,
+                    hintText: 'Password',
+                    keyboardType: TextInputType.visiblePassword,
+                    textInputAction: TextInputAction.done,
+                    isPassword: true,
+                    validator: validatePassword,
+                  ),
+                  const SizedBox(height: 15),
+                  // Login Button
+                  isLoading
+                      ? const CircularProgressIndicator()
+                      : RoundButton(
+                          onPressed: login,
+                          label: 'Login',
+                        ),
+                  const SizedBox(height: 15),
+                  const Text(
+                    'Forgot Password?',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ],
+              ),
             ),
             // Bottom Part of Login Screen
             Column(

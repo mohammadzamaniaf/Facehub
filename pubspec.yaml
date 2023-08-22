@@ -7,17 +7,30 @@ environment:
   sdk: '>=3.0.6 <4.0.0'
 
 dependencies:
+  flutter:
+    sdk: flutter
+
+  # firebase
   cloud_firestore: ^4.8.4
   firebase_auth: ^4.7.2
   firebase_core: ^2.15.0
   firebase_storage: ^11.2.5
-  flutter:
-    sdk: flutter
+  
+  # birthday date picker
   flutter_holo_date_picker: ^1.1.0
+
+  # for providing icons
   font_awesome_flutter: ^10.5.0
+
+  # formatting dates and timeago
   jiffy: ^6.2.1
+
+  # generating ids for users
   uuid: ^3.0.7
-  # timeago: ^3.5.0
+
+  #state management
+  flutter_riverpod: ^2.3.7
+  fluttertoast: ^8.2.2
 
 dev_dependencies:
   flutter_test:
@@ -26,7 +39,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-
 
   assets:
     - assets/images/

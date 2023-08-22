@@ -9,6 +9,7 @@ class RoundTextField extends StatelessWidget {
     required this.textInputAction,
     this.isPassword = false,
     this.keyboardType = TextInputType.text,
+    this.validator,
   }) : super(key: key);
 
   final TextEditingController controller;
@@ -16,10 +17,11 @@ class RoundTextField extends StatelessWidget {
   final bool isPassword;
   final TextInputType keyboardType;
   final TextInputAction textInputAction;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       controller: controller,
       decoration: InputDecoration(
         hintText: hintText,
@@ -32,6 +34,7 @@ class RoundTextField extends StatelessWidget {
       obscureText: isPassword,
       keyboardType: keyboardType,
       textInputAction: textInputAction,
+      validator: validator,
     );
   }
 }

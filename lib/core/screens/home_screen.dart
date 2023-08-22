@@ -15,11 +15,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late final TabController _tabController;
 
-  // TODO: The way I work with tab controller, handle fill and empty icons also
-  // the way I defined tab controller is weird.
-
-  // The setState is so costly, it will rebuild the entire app.
-
   @override
   void initState() {
     _tabController = TabController(length: 6, vsync: this);
@@ -28,7 +23,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    print('Home Screen rebuilt');
     return DefaultTabController(
       length: 6,
       child: Scaffold(
