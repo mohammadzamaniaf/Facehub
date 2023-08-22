@@ -162,11 +162,13 @@ class _CreateAccountScreenState extends ConsumerState<CreateAccountScreen> {
       );
 
       // create account
-      await authRepo.createAccount(user: user).then((value) {
-        Navigator.of(context).pushNamed(
-          VerifyEmailScreen.routeName,
-          arguments: user.email,
-        );
+      await authRepo.createAccount(user: user).then((credential) {
+        if (credential!.user!.emailVerified == false) {
+          // Navigator.of(context).pushNamed(
+          //   VerifyEmailScreen.routeName,
+          //   arguments: user.email,
+          // );
+        }
       }).catchError((_) {
         setState(() => isLoading = false);
       });

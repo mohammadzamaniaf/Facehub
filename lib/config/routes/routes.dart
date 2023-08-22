@@ -1,4 +1,6 @@
+import 'package:facehub/core/screens/home_screen.dart';
 import 'package:facehub/features/auth/presentation/screens/login_screen.dart';
+import 'package:facehub/features/feed/presentation/screens/create_post_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +23,14 @@ class Routes {
       case LoginScreen.routeName:
         return _cupertinoRoute(
           const LoginScreen(),
+        );
+      case HomeScreen.routeName:
+        return _cupertinoRoute(
+          const HomeScreen(),
+        );
+      case CreatePostScreen.routeName:
+        return _cupertinoRoute(
+          const CreatePostScreen(),
         );
 
       default:

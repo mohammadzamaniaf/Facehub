@@ -8,6 +8,8 @@ import '/features/feed/presentation/widgets/search_widget.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  static const routeName = '/home';
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }

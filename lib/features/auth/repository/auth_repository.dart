@@ -11,8 +11,8 @@ class AuthRepository {
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
 
-  String? get userId => _auth.currentUser?.uid;
-  bool? get emailVerified => _auth.currentUser?.emailVerified;
+  // String? get userId => _auth.currentUser?.uid;
+  // bool? get emailVerified => _auth.currentUser?.emailVerified;
 
   // Sign out
   Future<String?> signOut() async {
@@ -20,6 +20,7 @@ class AuthRepository {
       await _auth.signOut();
       return null;
     } on FirebaseAuthException catch (e) {
+      showToastMessage(text: e.toString());
       return e.toString();
     } catch (e) {
       showToastMessage(text: e.toString());
@@ -47,12 +48,12 @@ class AuthRepository {
   }
 
   // Create an account
-  Future<String?> createAccount({
+  Future<UserCredential?> createAccount({
     required UserModel user,
   }) async {
     try {
       // create an account in firebase
-      await _auth.createUserWithEmailAndPassword(
+      final credential = await _auth.createUserWithEmailAndPassword(
         email: user.email,
         password: user.password,
       );
@@ -63,10 +64,10 @@ class AuthRepository {
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .set(user.toMap());
 
-      return null;
+      return credential;
     } catch (e) {
       showToastMessage(text: e.toString());
-      return e.toString();
+      return null;
     }
   }
 

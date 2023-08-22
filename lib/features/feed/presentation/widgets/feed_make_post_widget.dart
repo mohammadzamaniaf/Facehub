@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '/core/constants/app_colors.dart';
 import '/core/constants/constants.dart';
 import '/core/widgets/round_profile_tile.dart';
+import '/features/feed/presentation/screens/create_post_screen.dart';
 
 class FeedMakePostWidget extends StatelessWidget {
   const FeedMakePostWidget({
@@ -13,25 +14,27 @@ class FeedMakePostWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
-      child: Container(
-        color: Colors.white,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 10,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const RoundProfileTile(url: Constants.maleProfilePic),
-              _buildPostTextField(),
-              IconButton(
-                onPressed: () {},
-                icon: const FaIcon(
+      child: GestureDetector(
+        onTap: () {
+          Navigator.of(context).pushNamed(CreatePostScreen.routeName);
+        },
+        child: Container(
+          color: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 10,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const RoundProfileTile(url: Constants.maleProfilePic),
+                _buildPostTextField(),
+                const Icon(
                   FontAwesomeIcons.solidImages,
                   color: Colors.green,
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
