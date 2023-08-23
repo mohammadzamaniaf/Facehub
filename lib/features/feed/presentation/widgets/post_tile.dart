@@ -1,12 +1,12 @@
 import 'dart:math';
 
-import 'package:jiffy/jiffy.dart';
-import 'package:facehub/core/widgets/icon_text_button.dart';
-import 'package:facehub/core/widgets/round_like_iocn.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:jiffy/jiffy.dart';
 
-import '../../data/models/post.dart';
+import '/core/widgets/icon_text_button.dart';
+import '/core/widgets/round_like_iocn.dart';
+import '/features/feed/models/post.dart';
 
 class PostTile extends StatelessWidget {
   const PostTile({
@@ -42,7 +42,7 @@ class PostTile extends StatelessWidget {
             child: AspectRatio(
               aspectRatio: 3 / 4,
               child: Image.network(
-                'https://picsum.photos/200/300?random=${Random().nextInt(10)}',
+                post.imageUrls[0],
                 fit: BoxFit.fitWidth,
               ),
             ),

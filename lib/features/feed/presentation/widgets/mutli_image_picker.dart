@@ -16,25 +16,20 @@ class MutliImagePickerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.width * .25,
-      child: Wrap(
-        alignment: WrapAlignment.start,
-        crossAxisAlignment: WrapCrossAlignment.start,
-        children: [
-          InkWell(
-            onTap: onPressed,
-            child: const ImageTile(),
-          ),
-          ...images
-              .map(
-                (image) => ImageTile(
-                  image: image,
-                ),
-              )
-              .toList(),
-        ],
-      ),
+    return Wrap(
+      children: [
+        InkWell(
+          onTap: onPressed,
+          child: const ImageTile(),
+        ),
+        ...images
+            .map(
+              (image) => ImageTile(
+                image: image,
+              ),
+            )
+            .toList(),
+      ],
     );
   }
 }
@@ -54,8 +49,8 @@ class ImageTile extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(5),
         child: Container(
-          height: MediaQuery.of(context).size.width * .25,
-          width: MediaQuery.of(context).size.width * .25,
+          height: MediaQuery.of(context).size.width * .28,
+          width: MediaQuery.of(context).size.width * .28,
           color: AppColors.greyColor,
           child: image != null
               ? Image.file(
