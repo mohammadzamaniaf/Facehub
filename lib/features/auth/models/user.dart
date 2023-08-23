@@ -7,7 +7,10 @@ class UserModel {
   final String email;
   final String password;
   final String profilePicUrl;
-  // final String uid;
+  final String uid;
+  final List<String> friends;
+  final List<String> sentRequests;
+  final List<String> receivedRequests;
 
   UserModel({
     required this.fullName,
@@ -16,7 +19,10 @@ class UserModel {
     required this.email,
     required this.password,
     required this.profilePicUrl,
-    // required this.uid,
+    required this.uid,
+    required this.friends,
+    required this.sentRequests,
+    required this.receivedRequests,
   });
 
   Map<String, dynamic> toMap() {
@@ -27,20 +33,32 @@ class UserModel {
       FirebaseFieldNames.email: email,
       FirebaseFieldNames.password: password,
       FirebaseFieldNames.profilePicUrl: profilePicUrl,
-      // FirebaseFieldNames.uid: uid,
+      FirebaseFieldNames.uid: uid,
+      FirebaseFieldNames.friends: friends,
+      FirebaseFieldNames.sentRequests: sentRequests,
+      FirebaseFieldNames.receivedRequests: receivedRequests,
     };
   }
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      fullName: map[FirebaseFieldNames.fullName] as String,
+      fullName: map[FirebaseFieldNames.fullName] ?? '',
       birthDay: DateTime.fromMillisecondsSinceEpoch(
-          map[FirebaseFieldNames.birthDay] as int),
-      gender: map[FirebaseFieldNames.gender] as String,
-      email: map[FirebaseFieldNames.email] as String,
-      password: map[FirebaseFieldNames.password] as String,
-      profilePicUrl: map[FirebaseFieldNames.profilePicUrl] as String,
-      // uid: map[FirebaseFieldNames.uid] as String,
+          map[FirebaseFieldNames.birthDay] ?? 0),
+      gender: map[FirebaseFieldNames.gender] ?? '',
+      email: map[FirebaseFieldNames.email] ?? '',
+      password: map[FirebaseFieldNames.password] ?? '',
+      profilePicUrl: map[FirebaseFieldNames.profilePicUrl] ?? '',
+      uid: map[FirebaseFieldNames.uid] ?? '',
+      friends: List<String>.from(
+        (map[FirebaseFieldNames.friends] ?? []),
+      ),
+      sentRequests: List<String>.from(
+        (map[FirebaseFieldNames.sentRequests] ?? []),
+      ),
+      receivedRequests: List<String>.from(
+        (map[FirebaseFieldNames.receivedRequests] ?? []),
+      ),
     );
   }
 }

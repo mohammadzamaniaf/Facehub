@@ -33,14 +33,16 @@ class Post {
 
   factory Post.fromMap(Map<String, dynamic> map) {
     return Post(
-      postId: map[FirebaseFieldNames.postId] as String,
-      posterId: map[FirebaseFieldNames.posterId] as String,
-      content: map[FirebaseFieldNames.content] as String,
+      postId: map[FirebaseFieldNames.postId] ?? '',
+      posterId: map[FirebaseFieldNames.posterId] ?? '',
+      content: map[FirebaseFieldNames.content] ?? '',
       imageUrls: List<String>.from(
-          (map[FirebaseFieldNames.imageUrls] as List<String>)),
+        (map[FirebaseFieldNames.imageUrls] ?? []),
+      ),
       datePublished: DateTime.fromMillisecondsSinceEpoch(
-          map[FirebaseFieldNames.datePublished] as int),
-      likesCount: map[FirebaseFieldNames.likesCount] as int,
+        map[FirebaseFieldNames.datePublished] ?? 0,
+      ),
+      likesCount: map[FirebaseFieldNames.likesCount] ?? [],
     );
   }
 }

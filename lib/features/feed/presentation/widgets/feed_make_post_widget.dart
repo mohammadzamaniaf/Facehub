@@ -29,9 +29,12 @@ class FeedMakePostWidget extends StatelessWidget {
               children: [
                 const RoundProfileTile(url: Constants.maleProfilePic),
                 _buildPostTextField(),
-                const Icon(
-                  FontAwesomeIcons.solidImages,
-                  color: Colors.green,
+                const Padding(
+                  padding: EdgeInsets.all(12.0),
+                  child: Icon(
+                    FontAwesomeIcons.solidImages,
+                    color: Colors.green,
+                  ),
                 ),
               ],
             ),

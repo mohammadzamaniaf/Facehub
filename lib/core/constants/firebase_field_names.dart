@@ -4,7 +4,9 @@ class FirebaseFieldNames {
   static const String gender = 'gender';
   static const String email = 'first_name';
   static const String password = 'password';
-  static const String firstName = 'first_name';
+  static const String friends = 'friends';
+  static const String sentRequests = 'sent_requests';
+  static const String receivedRequests = 'receivedRequests';
   static const String uid = 'uid';
   static const String datePublished = 'date_published';
   static const String postId = 'post_id';

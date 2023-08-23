@@ -1,13 +1,15 @@
-import 'package:facehub/features/auth/presentation/screens/verify_email_screen.dart';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '/core/constants/app_colors.dart';
 import '/core/constants/paddings.dart';
 import '/core/utils/utils.dart';
-import '/features/auth/models/user.dart';
 import '/features/auth/presentation/widgets/birthday_picker.dart';
 import '/features/auth/presentation/widgets/gender_picker.dart';
+import '/features/auth/presentation/widgets/pick_image_widget.dart';
 import '/features/auth/presentation/widgets/round_button.dart';
 import '/features/auth/presentation/widgets/round_text_field.dart';
 import '/features/auth/providers/auth_providers.dart';
@@ -30,6 +32,7 @@ class _CreateAccountScreenState extends ConsumerState<CreateAccountScreen> {
 
   DateTime? _birthDay;
   String? gender = 'male';
+  File? image;
   late final TextEditingController _emailController;
   late final TextEditingController _fNameController;
   late final TextEditingController _lNameController;
@@ -65,6 +68,14 @@ class _CreateAccountScreenState extends ConsumerState<CreateAccountScreen> {
             key: _formKey,
             child: Column(
               children: [
+                GestureDetector(
+                  onTap: () async {
+                    image = await pickImage(source: ImageSource.gallery);
+                    setState(() {});
+                  },
+                  child: PickImageWidget(image: image),
+                ),
+                const SizedBox(height: 20),
                 Row(
                   children: [
                     // First Name Text Field
@@ -151,23 +162,19 @@ class _CreateAccountScreenState extends ConsumerState<CreateAccountScreen> {
       setState(() => isLoading = true);
       final authRepo = ref.read(authProvider);
 
-      // Create a user
-      final user = UserModel(
+      // create account
+      await authRepo
+          .createAccount(
+        image: image,
         fullName: '${_fNameController.text} ${_lNameController.text}',
+        email: _emailController.text,
         birthDay: _birthDay ?? DateTime.now(),
         gender: gender!,
-        email: _emailController.text,
         password: _passwordController.text,
-        profilePicUrl: 'profilePicUrl',
-      );
-
-      // create account
-      await authRepo.createAccount(user: user).then((credential) {
-        if (credential!.user!.emailVerified == false) {
-          // Navigator.of(context).pushNamed(
-          //   VerifyEmailScreen.routeName,
-          //   arguments: user.email,
-          // );
+      )
+          .then((credential) {
+        if (credential!.user!.emailVerified) {
+          Navigator.of(context).pop();
         }
       }).catchError((_) {
         setState(() => isLoading = false);

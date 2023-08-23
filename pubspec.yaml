@@ -28,9 +28,14 @@ dependencies:
   # generating ids for users
   uuid: ^3.0.7
 
-  #state management
+  # state management
   flutter_riverpod: ^2.3.7
+
+  # show toast message
   fluttertoast: ^8.2.2
+
+  # pick images
+  image_picker: ^1.0.2
 
 dev_dependencies:
   flutter_test:

@@ -1,7 +1,9 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
 
 final today = DateTime.now();
 // 18 years ago
@@ -40,6 +42,7 @@ void showSnackBar({
     );
 }
 
+// Show Toast Message
 void showToastMessage({
   required String text,
 }) {
@@ -50,4 +53,21 @@ void showToastMessage({
     toastLength: Toast.LENGTH_LONG,
     gravity: ToastGravity.BOTTOM,
   );
+}
+
+// Pick image
+Future<File?> pickImage({
+  required ImageSource source,
+}) async {
+  File? image;
+  final picker = ImagePicker();
+  final file = await picker.pickImage(
+    source: source,
+    maxHeight: 500,
+    maxWidth: 500,
+  );
+  if (file != null) {
+    image = File(file.path);
+  }
+  return image;
 }
