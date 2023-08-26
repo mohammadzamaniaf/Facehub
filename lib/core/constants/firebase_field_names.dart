@@ -13,8 +13,11 @@ class FirebaseFieldNames {
   static const String posterId = 'poster_id';
   static const String content = 'content';
   static const String imageUrls = 'image_urls';
-  static const String likesCount = 'likes_count';
+  static const String likes = 'likes';
   static const String profilePicUrl = 'profile_pic_url';
-
+  static const String createdAt = 'created_at';
+  static const String authorId = 'author_id';
+  static const String commentId = 'comment_id';
+  static const String text = 'text';
   FirebaseFieldNames._();
 }

@@ -6,19 +6,24 @@ class IconTextButton extends StatelessWidget {
     super.key,
     required this.icon,
     required this.label,
+    this.onPressed,
   });
 
   final IconData icon;
   final String label;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        FaIcon(icon, size: 20),
-        const SizedBox(width: 8),
-        Text(label),
-      ],
+    return InkWell(
+      onTap: onPressed,
+      child: Row(
+        children: [
+          FaIcon(icon, size: 20),
+          const SizedBox(width: 8),
+          Text(label),
+        ],
+      ),
     );
   }
 }

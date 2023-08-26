@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:facehub/core/screens/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
@@ -47,7 +48,7 @@ class CreatePostScreenState extends ConsumerState<CreatePostScreen> {
         title: const Text('Create Post'),
         actions: [
           TextButton(
-            onPressed: () {},
+            onPressed: makePost,
             child: const Text('Post'),
           ),
         ],
@@ -87,21 +88,9 @@ class CreatePostScreenState extends ConsumerState<CreatePostScreen> {
               ),
               const SizedBox(height: 20),
               isLoading
-                  ? const CircularProgressIndicator()
+                  ? const Loader()
                   : RoundButton(
-                      onPressed: () async {
-                        setState(() => isLoading = true);
-                        await ref
-                            .read(feedProvider)
-                            .makePost(
-                              content: _textController.text,
-                              images: images,
-                            )
-                            .catchError((_) {
-                          setState(() => isLoading = false);
-                        });
-                        setState(() => isLoading = false);
-                      },
+                      onPressed: makePost,
                       label: 'Post',
                     ),
             ],
@@ -109,5 +98,21 @@ class CreatePostScreenState extends ConsumerState<CreatePostScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> makePost() async {
+    setState(() => isLoading = true);
+    await ref
+        .read(feedProvider)
+        .makePost(
+          content: _textController.text,
+          images: images,
+        )
+        .then((value) {
+      Navigator.of(context).pop();
+    }).catchError((_) {
+      setState(() => isLoading = false);
+    });
+    setState(() => isLoading = false);
   }
 }

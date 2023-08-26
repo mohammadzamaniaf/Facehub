@@ -1,12 +1,14 @@
-import 'dart:math';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jiffy/jiffy.dart';
 
 import '/core/widgets/icon_text_button.dart';
 import '/core/widgets/round_like_iocn.dart';
 import '/features/feed/models/post.dart';
+import '/features/feed/presentation/screens/comments_screen.dart';
+import '/features/feed/providers/feed_provider.dart';
 
 class PostTile extends StatelessWidget {
   const PostTile({
@@ -40,25 +42,29 @@ class PostTile extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: AspectRatio(
-              aspectRatio: 3 / 4,
+              aspectRatio: 3 / 3,
               child: Image.network(
                 post.imageUrls[0],
-                fit: BoxFit.fitWidth,
+                fit: BoxFit.cover,
               ),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(
+          Padding(
+            padding: const EdgeInsets.symmetric(
               horizontal: 15,
               vertical: 12,
             ),
             child: Column(
               children: [
                 // Post Stats (Likes or comments)
-                PostStatus(),
-                Divider(),
+                PostStatus(
+                  likes: post.likes,
+                ),
+                const Divider(),
                 // Post Buttons
-                PostButtons(),
+                PostButtons(
+                  post: post,
+                ),
               ],
             ),
           ),
@@ -69,17 +75,46 @@ class PostTile extends StatelessWidget {
 }
 
 // Post Buttons (Like, Comment, Share)
-class PostButtons extends StatelessWidget {
-  const PostButtons({super.key});
+class PostButtons extends ConsumerWidget {
+  const PostButtons({
+    super.key,
+    required this.post,
+  });
+
+  final Post post;
 
   @override
-  Widget build(BuildContext context) {
-    return const Row(
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isLiked = post.likes.contains(FirebaseAuth.instance.currentUser!.uid);
+    return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        IconTextButton(icon: FontAwesomeIcons.solidThumbsUp, label: 'Like'),
-        IconTextButton(icon: FontAwesomeIcons.solidMessage, label: 'Comment'),
-        IconTextButton(icon: FontAwesomeIcons.share, label: 'Share'),
+        IconTextButton(
+          onPressed: () {
+            ref.read(feedProvider).likeDislikePost(
+                  postId: post.postId,
+                  likes: post.likes,
+                );
+          },
+          icon: isLiked
+              ? FontAwesomeIcons.solidThumbsUp
+              : FontAwesomeIcons.thumbsUp,
+          label: 'Like',
+        ),
+        IconTextButton(
+          onPressed: () {
+            Navigator.of(context).pushNamed(
+              CommentsScreen.routeName,
+              arguments: post.postId,
+            );
+          },
+          icon: FontAwesomeIcons.solidMessage,
+          label: 'Comment',
+        ),
+        const IconTextButton(
+          icon: FontAwesomeIcons.share,
+          label: 'Share',
+        ),
       ],
     );
   }
@@ -87,21 +122,26 @@ class PostButtons extends StatelessWidget {
 
 // Post Likes and comments count
 class PostStatus extends StatelessWidget {
-  const PostStatus({super.key});
+  const PostStatus({
+    super.key,
+    required this.likes,
+  });
+
+  final List<String> likes;
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Row(
           children: [
-            RoundLikeIcon(),
-            SizedBox(width: 5),
-            Text('2.1 M'),
+            const RoundLikeIcon(),
+            const SizedBox(width: 5),
+            Text('${likes.length}'),
           ],
         ),
-        Text('20k Comments'),
+        const Text('20k Comments'),
       ],
     );
   }

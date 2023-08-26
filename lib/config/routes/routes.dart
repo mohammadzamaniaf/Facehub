@@ -1,9 +1,10 @@
-import 'package:facehub/core/screens/home_screen.dart';
-import 'package:facehub/features/auth/presentation/screens/login_screen.dart';
-import 'package:facehub/features/feed/presentation/screens/create_post_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '/core/screens/home_screen.dart';
+import '/features/auth/presentation/screens/login_screen.dart';
+import '/features/feed/presentation/screens/comments_screen.dart';
+import '/features/feed/presentation/screens/create_post_screen.dart';
 import '/core/screens/error_screen.dart';
 import '/features/auth/presentation/screens/create_account_screen.dart';
 import '/features/auth/presentation/screens/verify_email_screen.dart';
@@ -31,6 +32,13 @@ class Routes {
       case CreatePostScreen.routeName:
         return _cupertinoRoute(
           const CreatePostScreen(),
+        );
+      case CommentsScreen.routeName:
+        final postId = settings.arguments as String;
+        return _cupertinoRoute(
+          CommentsScreen(
+            postId: postId,
+          ),
         );
 
       default:

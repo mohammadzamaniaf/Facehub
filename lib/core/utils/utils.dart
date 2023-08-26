@@ -63,8 +63,8 @@ Future<File?> pickImage({
   final picker = ImagePicker();
   final file = await picker.pickImage(
     source: source,
-    maxHeight: 500,
-    maxWidth: 500,
+    maxHeight: 1280,
+    maxWidth: 1280,
   );
   if (file != null) {
     image = File(file.path);

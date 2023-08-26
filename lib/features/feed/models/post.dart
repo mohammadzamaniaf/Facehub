@@ -9,7 +9,7 @@ class Post {
   final String content;
   final List<String> imageUrls;
   final DateTime datePublished;
-  final int likesCount;
+  final List<String> likes;
 
   Post({
     required this.postId,
@@ -17,7 +17,7 @@ class Post {
     required this.content,
     required this.imageUrls,
     required this.datePublished,
-    required this.likesCount,
+    required this.likes,
   });
 
   Map<String, dynamic> toMap() {
@@ -27,7 +27,7 @@ class Post {
       FirebaseFieldNames.content: content,
       FirebaseFieldNames.imageUrls: imageUrls,
       FirebaseFieldNames.datePublished: datePublished.millisecondsSinceEpoch,
-      FirebaseFieldNames.likesCount: likesCount,
+      FirebaseFieldNames.likes: likes,
     };
   }
 
@@ -42,90 +42,9 @@ class Post {
       datePublished: DateTime.fromMillisecondsSinceEpoch(
         map[FirebaseFieldNames.datePublished] ?? 0,
       ),
-      likesCount: map[FirebaseFieldNames.likesCount] ?? [],
+      likes: List<String>.from(
+        (map[FirebaseFieldNames.likes] ?? []),
+      ),
     );
   }
 }
-
-List<Post> fakePosts = [
-  Post(
-    postId: '1',
-    posterId: '11',
-    content: 'Fake text',
-    imageUrls: [],
-    datePublished: DateTime(2023, 07, 20),
-    likesCount: 21403,
-  ),
-  Post(
-    postId: '1',
-    posterId: '11',
-    content: 'Fake text',
-    imageUrls: [],
-    datePublished: DateTime(2023, 07, 20),
-    likesCount: 21403,
-  ),
-  Post(
-    postId: '1',
-    posterId: '11',
-    content: 'Fake text',
-    imageUrls: [],
-    datePublished: DateTime(2023, 07, 20),
-    likesCount: 21403,
-  ),
-  Post(
-    postId: '1',
-    posterId: '11',
-    content: 'Fake text',
-    imageUrls: [],
-    datePublished: DateTime(2023, 07, 20),
-    likesCount: 21403,
-  ),
-  Post(
-    postId: '1',
-    posterId: '11',
-    content: 'Fake text',
-    imageUrls: [],
-    datePublished: DateTime(2023, 07, 20),
-    likesCount: 21403,
-  ),
-  Post(
-    postId: '1',
-    posterId: '11',
-    content: 'Fake text',
-    imageUrls: [],
-    datePublished: DateTime(2023, 07, 20),
-    likesCount: 21403,
-  ),
-  Post(
-    postId: '1',
-    posterId: '11',
-    content: 'Fake text',
-    imageUrls: [],
-    datePublished: DateTime(2023, 07, 20),
-    likesCount: 21403,
-  ),
-  Post(
-    postId: '1',
-    posterId: '11',
-    content: 'Fake text',
-    imageUrls: [],
-    datePublished: DateTime(2023, 07, 20),
-    likesCount: 21403,
-  ),
-  Post(
-    postId: '1',
-    posterId: '11',
-    content: 'Fake text',
-    imageUrls: [],
-    datePublished: DateTime(2023, 07, 20),
-    likesCount: 21403,
-  ),
-  Post(
-    postId: '1',
-    posterId: '11',
-    content: 'Fake text',
-    imageUrls: [],
-    datePublished: DateTime(2023, 07, 20),
-    likesCount: 21403,
-  ),
-];
