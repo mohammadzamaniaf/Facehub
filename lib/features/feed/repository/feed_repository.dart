@@ -132,4 +132,39 @@ class FeedRepository {
       return e.toString();
     }
   }
+
+  // Like or dislike a comment
+  Future<String?> likeDislikeComment({
+    required String commentId,
+    required List<String> likes,
+  }) async {
+    try {
+      final authorId = _auth.currentUser!.uid;
+
+      if (likes.contains(authorId)) {
+        // if we already liked the post, unlike it
+        _firestore
+            .collection(FirebaseCollectionNames.comments)
+            .doc(commentId)
+            .update({
+          FirebaseCollectionNames.likes: FieldValue.arrayRemove(
+            [authorId],
+          )
+        });
+      } else {
+        // if we haven't liked the post, we like it
+        _firestore
+            .collection(FirebaseCollectionNames.comments)
+            .doc(commentId)
+            .update({
+          FirebaseCollectionNames.likes: FieldValue.arrayUnion(
+            [authorId],
+          )
+        });
+      }
+      return null;
+    } catch (e) {
+      return e.toString();
+    }
+  }
 }

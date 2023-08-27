@@ -4,8 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jiffy/jiffy.dart';
 
+import '/core/screens/error_screen.dart';
+import '/core/screens/loader.dart';
 import '/core/widgets/icon_text_button.dart';
 import '/core/widgets/round_like_iocn.dart';
+import '/features/auth/providers/get_user_info_provider.dart';
 import '/features/feed/models/post.dart';
 import '/features/feed/presentation/screens/comments_screen.dart';
 import '/features/feed/providers/feed_provider.dart';
@@ -27,7 +30,6 @@ class PostTile extends StatelessWidget {
         children: [
           // Post Header part
           PostHeader(
-            posterId: post.posterId,
             datePublished: post.datePublished,
           ),
           // Post Text
@@ -148,55 +150,65 @@ class PostStatus extends StatelessWidget {
 }
 
 // Post Profile Info
-class PostHeader extends StatelessWidget {
+class PostHeader extends ConsumerWidget {
   const PostHeader({
     super.key,
-    required this.posterId,
     required this.datePublished,
   });
 
   final DateTime datePublished;
-  final String posterId;
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 15,
-        vertical: 8,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          const CircleAvatar(
-            backgroundImage: NetworkImage(
-              'https://fakeimg.pl/350x200/?text=World&font=lobster',
-            ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userInfo = ref.read(getUserInfoProvider);
+
+    return userInfo.when(
+      data: (user) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 15,
+            vertical: 8,
           ),
-          const SizedBox(width: 10),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const Text(
-                'Mike Dane',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
+              CircleAvatar(
+                backgroundImage: NetworkImage(
+                  user.profilePicUrl,
                 ),
               ),
-              Text(
-                Jiffy.parseFromDateTime(datePublished).fromNow(),
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey,
-                ),
+              const SizedBox(width: 10),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    user.fullName,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  Text(
+                    Jiffy.parseFromDateTime(datePublished).fromNow(),
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
               ),
+              const Spacer(),
+              const Icon(Icons.more_horiz),
             ],
           ),
-          const Spacer(),
-          const Icon(Icons.more_horiz),
-        ],
-      ),
+        );
+      },
+      error: (error, stackTrace) {
+        return ErrorScreen(error: error.toString());
+      },
+      loading: () {
+        return const Loader();
+      },
     );
   }
 }

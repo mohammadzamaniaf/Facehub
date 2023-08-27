@@ -8,7 +8,7 @@ class Comment {
   final String postId;
   final String text;
   final DateTime createdAt;
-  final List<int> likes;
+  final List<String> likes;
 
   const Comment({
     required this.commentId,
@@ -39,7 +39,7 @@ class Comment {
       createdAt: DateTime.fromMillisecondsSinceEpoch(
         map[FirebaseFieldNames.createdAt] ?? 0,
       ),
-      likes: List<int>.from(
+      likes: List<String>.from(
         (map[FirebaseFieldNames.likes] ?? []),
       ),
     );

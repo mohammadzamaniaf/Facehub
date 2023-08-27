@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:facehub/core/constants/firebase_field_names.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -120,6 +119,7 @@ class AuthRepository {
     return 'Email does not exist';
   }
 
+  // Get user info
   Future<UserModel> getUserInfo() async {
     final userData = await _firestore
         .collection(FirebaseCollectionNames.users)
