@@ -48,7 +48,6 @@ class CommentHeader extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    print('Comment Header Header Header');
     final userInfo = ref.watch(getUserInfoProvider);
 
     return userInfo.when(
@@ -105,7 +104,6 @@ class CommentFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('Comment Footer Built');
     final isLiked =
         comment.likes.contains(FirebaseAuth.instance.currentUser!.uid);
     return Consumer(

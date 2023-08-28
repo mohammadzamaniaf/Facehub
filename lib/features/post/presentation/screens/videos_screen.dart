@@ -1,10 +1,43 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class VideosScreen extends StatelessWidget {
+import '/core/screens/error_screen.dart';
+import '/core/screens/loader.dart';
+import '/features/post/presentation/widgets/post_tile.dart';
+import '/features/post/providers/get_all_videos_provider.dart';
+
+class VideosScreen extends ConsumerWidget {
   const VideosScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final videos = ref.watch(getAllVideosProvider);
+
+    return videos.when(
+      data: (Iterable videos) {
+        return ListView.separated(
+          itemCount: videos.length,
+          separatorBuilder: (context, index) => const SizedBox(height: 8),
+          itemBuilder: (context, index) {
+            final video = videos.elementAt(index);
+            return PostTile(
+              post: video,
+            );
+          },
+        );
+      },
+      error: (error, stackTrace) {
+        return SliverToBoxAdapter(
+          child: ErrorScreen(
+            error: error.toString(),
+          ),
+        );
+      },
+      loading: () {
+        return const SliverToBoxAdapter(
+          child: Loader(),
+        );
+      },
+    );
   }
 }

@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 import '/core/constants/firebase_collection_names.dart';
-import '/core/constants/storage_folder_names.dart';
 import '/features/post/models/comment.dart';
 import '/features/post/models/post.dart';
 
@@ -53,7 +52,6 @@ class PostRepository {
       // no error caught
       return null;
     } catch (e) {
-      print(e);
       return e.toString();
     }
   }

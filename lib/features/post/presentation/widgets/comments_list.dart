@@ -34,7 +34,6 @@ class CommentsList extends ConsumerWidget {
           return ErrorScreen(error: error.toString());
         },
         loading: () {
-          print('Loading comments');
           return const Loader();
         },
       ),
