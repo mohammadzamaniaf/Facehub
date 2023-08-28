@@ -63,8 +63,8 @@ Future<File?> pickImage({
   final picker = ImagePicker();
   final file = await picker.pickImage(
     source: source,
-    maxHeight: 1280,
-    maxWidth: 1280,
+    maxHeight: 720,
+    maxWidth: 720,
   );
   if (file != null) {
     image = File(file.path);
@@ -80,7 +80,7 @@ Future<File?> pickVideo({
   final picker = ImagePicker();
   final file = await picker.pickVideo(
     source: source,
-    maxDuration: const Duration(minutes: 100),
+    maxDuration: const Duration(minutes: 5),
   );
   if (file != null) {
     video = File(file.path);

@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '/features/friends/presentation/screens/friends_screen.dart';
 import '/features/post/presentation/screens/posts_screen.dart';
 import '/features/post/presentation/screens/videos_screen.dart';
+import '/features/profile/presentation/screens/profile_screen.dart';
 import '/features/settings/presentation/screens/settings_screen.dart';
 
 class Constants {
@@ -46,16 +49,12 @@ class Constants {
     ];
   }
 
-  static const homeScreenTabBarChildren = [
-    PostsScreen(),
-    Center(
-      child: Text('Friends'),
-    ),
-    VideosScreen(),
-    Center(
-      child: Text('Profile'),
-    ),
-    SettingsScreen(),
+  static final screens = [
+    const PostsScreen(),
+    const FriendsScreen(),
+    const VideosScreen(),
+    ProfileScreen(userId: FirebaseAuth.instance.currentUser!.uid),
+    const SettingsScreen(),
   ];
 
   Constants._();

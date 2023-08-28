@@ -27,16 +27,12 @@ class VideosScreen extends ConsumerWidget {
         );
       },
       error: (error, stackTrace) {
-        return SliverToBoxAdapter(
-          child: ErrorScreen(
-            error: error.toString(),
-          ),
+        return ErrorScreen(
+          error: error.toString(),
         );
       },
       loading: () {
-        return const SliverToBoxAdapter(
-          child: Loader(),
-        );
+        return const Loader();
       },
     );
   }

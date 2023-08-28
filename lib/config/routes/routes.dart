@@ -8,6 +8,7 @@ import '/features/auth/presentation/screens/login_screen.dart';
 import '/features/auth/presentation/screens/verify_email_screen.dart';
 import '/features/post/presentation/screens/comments_screen.dart';
 import '/features/post/presentation/screens/create_post_screen.dart';
+import '/features/profile/presentation/screens/profile_screen.dart';
 
 class Routes {
   static Route onGenerateRoute(RouteSettings settings) {
@@ -38,6 +39,13 @@ class Routes {
         return _cupertinoRoute(
           CommentsScreen(
             postId: postId,
+          ),
+        );
+      case ProfileScreen.routeName:
+        final userId = settings.arguments as String;
+        return _cupertinoRoute(
+          ProfileScreen(
+            userId: userId,
           ),
         );
 

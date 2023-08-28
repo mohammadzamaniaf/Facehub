@@ -1,3 +1,6 @@
+import 'package:facehub/features/auth/providers/get_user_info_by_user_id_provider.dart';
+import 'package:facehub/features/post/presentation/widgets/post_image_video_view.dart';
+import 'package:facehub/features/profile/presentation/screens/profile_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,7 +14,6 @@ import '/core/widgets/round_like_iocn.dart';
 import '/features/auth/providers/get_user_info_provider.dart';
 import '/features/post/models/post.dart';
 import '/features/post/presentation/screens/comments_screen.dart';
-import '/features/post/presentation/widgets/network_video_view.dart';
 import '/features/post/providers/post_provider.dart';
 
 class PostTile extends StatelessWidget {
@@ -32,6 +34,7 @@ class PostTile extends StatelessWidget {
           // Post Header part
           PostHeader(
             datePublished: post.datePublished,
+            userId: post.posterId,
           ),
           // Post Text
           Padding(
@@ -42,20 +45,10 @@ class PostTile extends StatelessWidget {
             child: Text(post.content),
           ),
           // Image/Video Part
-          post.postType == 'image'
-              ? SizedBox(
-                  width: double.infinity,
-                  child: AspectRatio(
-                    aspectRatio: 3 / 3,
-                    child: Image.network(
-                      post.fileUrl,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                )
-              : NetworkVideoView(
-                  fileUrl: post.fileUrl,
-                ),
+          PostImageVideoView(
+            fileUrl: post.fileUrl,
+            postType: post.postType,
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 15,
@@ -159,13 +152,15 @@ class PostHeader extends ConsumerWidget {
   const PostHeader({
     super.key,
     required this.datePublished,
+    required this.userId,
   });
 
   final DateTime datePublished;
+  final String userId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userInfo = ref.read(getUserInfoProvider);
+    final userInfo = ref.watch(getUserInfoByUserIdProvider(userId));
 
     return userInfo.when(
       data: (user) {
@@ -177,9 +172,17 @@ class PostHeader extends ConsumerWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              CircleAvatar(
-                backgroundImage: NetworkImage(
-                  user.profilePicUrl,
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pushNamed(
+                    ProfileScreen.routeName,
+                    arguments: user.uid,
+                  );
+                },
+                child: CircleAvatar(
+                  backgroundImage: NetworkImage(
+                    user.profilePicUrl,
+                  ),
                 ),
               ),
               const SizedBox(width: 10),

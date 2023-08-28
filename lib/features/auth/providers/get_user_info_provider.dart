@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '/core/constants/firebase_collection_names.dart';
 import '/features/auth/models/user.dart';
 
-final getUserInfoProvider = FutureProvider<UserModel>(
+final getUserInfoProvider = FutureProvider.autoDispose<UserModel>(
   (ref) {
     return FirebaseFirestore.instance
         .collection(FirebaseCollectionNames.users)

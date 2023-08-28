@@ -2,7 +2,7 @@ class FirebaseFieldNames {
   static const String fullName = 'full_name';
   static const String birthDay = 'birth_day';
   static const String gender = 'gender';
-  static const String email = 'first_name';
+  static const String email = 'email';
   static const String password = 'password';
   static const String friends = 'friends';
   static const String sentRequests = 'sent_requests';
