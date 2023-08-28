@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '/core/screens/error_screen.dart';
 import '/core/screens/loader.dart';
-import '/features/feed/presentation/widgets/comment_tile.dart';
-import '/features/feed/providers/get_all_comments_provider.dart';
+import '/features/post/presentation/widgets/comment_tile.dart';
+import '/features/post/providers/get_all_comments_provider.dart';
 
 class CommentsList extends ConsumerWidget {
   const CommentsList({

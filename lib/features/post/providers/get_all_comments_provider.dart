@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '/core/constants/firebase_collection_names.dart';
 import '/core/constants/firebase_field_names.dart';
-import '/features/feed/models/comment.dart';
+import '/features/post/models/comment.dart';
 
 final getAllCommentsProvider =
     StreamProvider.autoDispose.family<Iterable<Comment>, String>((ref, postId) {

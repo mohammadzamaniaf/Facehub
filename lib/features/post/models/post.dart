@@ -1,13 +1,11 @@
-// likes and comments for each post have their own collections.
-// But we still store the likes count
-
 import '/core/constants/firebase_field_names.dart';
 
 class Post {
   final String postId;
   final String posterId;
   final String content;
-  final List<String> imageUrls;
+  final String postType;
+  final String fileUrl;
   final DateTime datePublished;
   final List<String> likes;
 
@@ -15,7 +13,8 @@ class Post {
     required this.postId,
     required this.posterId,
     required this.content,
-    required this.imageUrls,
+    required this.postType,
+    required this.fileUrl,
     required this.datePublished,
     required this.likes,
   });
@@ -25,9 +24,10 @@ class Post {
       FirebaseFieldNames.postId: postId,
       FirebaseFieldNames.posterId: posterId,
       FirebaseFieldNames.content: content,
-      FirebaseFieldNames.imageUrls: imageUrls,
+      FirebaseFieldNames.fileUrl: fileUrl,
       FirebaseFieldNames.datePublished: datePublished.millisecondsSinceEpoch,
       FirebaseFieldNames.likes: likes,
+      FirebaseFieldNames.postType: postType,
     };
   }
 
@@ -36,9 +36,8 @@ class Post {
       postId: map[FirebaseFieldNames.postId] ?? '',
       posterId: map[FirebaseFieldNames.posterId] ?? '',
       content: map[FirebaseFieldNames.content] ?? '',
-      imageUrls: List<String>.from(
-        (map[FirebaseFieldNames.imageUrls] ?? []),
-      ),
+      postType: map[FirebaseFieldNames.postType] ?? '',
+      fileUrl: map[FirebaseFieldNames.fileUrl] ?? '',
       datePublished: DateTime.fromMillisecondsSinceEpoch(
         map[FirebaseFieldNames.datePublished] ?? 0,
       ),

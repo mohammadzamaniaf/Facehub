@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '/core/constants/app_colors.dart';
 import '/core/constants/constants.dart';
 import '/core/widgets/round_profile_tile.dart';
-import '/features/feed/presentation/screens/create_post_screen.dart';
+import '/features/post/presentation/screens/create_post_screen.dart';
 
 class FeedMakePostWidget extends StatelessWidget {
   const FeedMakePostWidget({

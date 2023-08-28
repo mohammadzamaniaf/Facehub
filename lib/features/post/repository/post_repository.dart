@@ -8,10 +8,10 @@ import 'package:uuid/uuid.dart';
 
 import '/core/constants/firebase_collection_names.dart';
 import '/core/constants/storage_folder_names.dart';
-import '/features/feed/models/comment.dart';
-import '/features/feed/models/post.dart';
+import '/features/post/models/comment.dart';
+import '/features/post/models/post.dart';
 
-class FeedRepository {
+class PostRepository {
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
   final _storage = FirebaseStorage.instance;
@@ -19,47 +19,43 @@ class FeedRepository {
   // make post
   Future<String?> makePost({
     required String content,
-    required List<File> images,
+    required File file,
+    required String postType,
   }) async {
     try {
       final postId = const Uuid().v1();
       final posterId = _auth.currentUser!.uid;
       final now = DateTime.now();
 
-      List<String> imageUrls = [];
+      // Post the image/video to storage
+      final fileUid = const Uuid().v4();
+      final path = _storage.ref(postType).child(fileUid);
+      final taskSnapshot = await path.putFile(file);
+      final downloadUrl = await taskSnapshot.ref.getDownloadURL();
 
-      // Post all images to storage and get download urls
-      for (var image in images) {
-        final imageUid = const Uuid().v4();
-        final path = _storage.ref(StorageFolderNames.photos).child(imageUid);
-        final taskSnapshot = await path.putFile(image);
-        final downloadUrl = await taskSnapshot.ref.getDownloadURL();
-        imageUrls.add(downloadUrl);
+      // create post object
+      Post post = Post(
+        postType: postType,
+        postId: postId,
+        posterId: posterId,
+        content: content,
+        fileUrl: downloadUrl,
+        datePublished: now,
+        likes: [],
+      );
 
-        // create post object
-        Post post = Post(
-          postId: postId,
-          posterId: posterId,
-          content: content,
-          imageUrls: imageUrls,
-          datePublished: now,
-          likes: [],
-        );
+      // Save post to firestore
+      _firestore
+          .collection(FirebaseCollectionNames.posts)
+          .doc(postId)
+          .set(post.toMap());
 
-        // Save post to firestore
-        _firestore
-            .collection(FirebaseCollectionNames.posts)
-            .doc(postId)
-            .set(post.toMap());
-
-        // no error caught
-        return null;
-      }
+      // no error caught
+      return null;
     } catch (e) {
       print(e);
       return e.toString();
     }
-    return null;
   }
 
   // Like a post

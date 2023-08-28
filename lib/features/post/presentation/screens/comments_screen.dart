@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '/features/feed/presentation/widgets/comments_list.dart';
-import '/features/feed/presentation/widgets/comments_text_field.dart';
+import '/features/post/presentation/widgets/comment_text_field.dart';
+import '/features/post/presentation/widgets/comments_list.dart';
 
 class CommentsScreen extends StatelessWidget {
   const CommentsScreen({

@@ -37,6 +37,9 @@ dependencies:
   # pick images
   image_picker: ^1.0.2
 
+  # play videos
+  cached_video_player: ^2.0.4
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

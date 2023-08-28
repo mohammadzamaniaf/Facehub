@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '/core/constants/app_colors.dart';
 import '/core/constants/constants.dart';
-import '/features/feed/presentation/widgets/messenger_widget.dart';
-import '/features/feed/presentation/widgets/search_widget.dart';
+import '../../features/post/presentation/widgets/messenger_widget.dart';
+import '../../features/post/presentation/widgets/search_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 6,
+      length: 5,
       child: Scaffold(
         backgroundColor: AppColors.greyColor,
         appBar: AppBar(

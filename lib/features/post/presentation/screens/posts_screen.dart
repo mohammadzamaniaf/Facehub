@@ -3,13 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '/core/screens/error_screen.dart';
 import '/core/screens/loader.dart';
-import '/features/feed/presentation/widgets/feed_make_post_widget.dart';
-import '/features/feed/presentation/widgets/post_tile.dart';
-import '/features/feed/presentation/widgets/stories_view.dart';
-import '/features/feed/providers/get_all_posts_provider.dart';
+import '/features/post/presentation/widgets/make_post_widget.dart';
+import '/features/post/presentation/widgets/post_tile.dart';
+import '/features/post/presentation/widgets/stories_view.dart';
+import '/features/post/providers/get_all_posts_provider.dart';
 
-class NewsFeedScreen extends StatelessWidget {
-  const NewsFeedScreen({super.key});
+class PostsScreen extends StatelessWidget {
+  const PostsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

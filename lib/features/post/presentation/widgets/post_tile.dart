@@ -9,9 +9,10 @@ import '/core/screens/loader.dart';
 import '/core/widgets/icon_text_button.dart';
 import '/core/widgets/round_like_iocn.dart';
 import '/features/auth/providers/get_user_info_provider.dart';
-import '/features/feed/models/post.dart';
-import '/features/feed/presentation/screens/comments_screen.dart';
-import '/features/feed/providers/feed_provider.dart';
+import '/features/post/models/post.dart';
+import '/features/post/presentation/screens/comments_screen.dart';
+import '/features/post/presentation/widgets/network_video_view.dart';
+import '/features/post/providers/post_provider.dart';
 
 class PostTile extends StatelessWidget {
   const PostTile({
@@ -40,17 +41,21 @@ class PostTile extends StatelessWidget {
             ),
             child: Text(post.content),
           ),
-          // Image Part
-          SizedBox(
-            width: double.infinity,
-            child: AspectRatio(
-              aspectRatio: 3 / 3,
-              child: Image.network(
-                post.imageUrls[0],
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
+          // Image/Video Part
+          post.postType == 'image'
+              ? SizedBox(
+                  width: double.infinity,
+                  child: AspectRatio(
+                    aspectRatio: 3 / 3,
+                    child: Image.network(
+                      post.fileUrl,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                )
+              : NetworkVideoView(
+                  fileUrl: post.fileUrl,
+                ),
           Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 15,
@@ -93,7 +98,7 @@ class PostButtons extends ConsumerWidget {
       children: [
         IconTextButton(
           onPressed: () {
-            ref.read(feedProvider).likeDislikePost(
+            ref.read(postProvider).likeDislikePost(
                   postId: post.postId,
                   likes: post.likes,
                 );

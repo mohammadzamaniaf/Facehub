@@ -9,8 +9,8 @@ import '/core/screens/loader.dart';
 import '/core/widgets/round_like_iocn.dart';
 import '/core/widgets/round_profile_tile.dart';
 import '/features/auth/providers/get_user_info_provider.dart';
-import '/features/feed/models/comment.dart';
-import '/features/feed/providers/feed_provider.dart';
+import '/features/post/models/comment.dart';
+import '/features/post/providers/post_provider.dart';
 
 class CommentTile extends StatelessWidget {
   const CommentTile({
@@ -119,7 +119,7 @@ class CommentFooter extends StatelessWidget {
             const SizedBox(width: 15),
             TextButton(
               onPressed: () {
-                ref.read(feedProvider).likeDislikeComment(
+                ref.read(postProvider).likeDislikeComment(
                       commentId: comment.commentId,
                       likes: comment.likes,
                     );

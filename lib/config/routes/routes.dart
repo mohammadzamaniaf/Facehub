@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '/core/screens/home_screen.dart';
-import '/features/auth/presentation/screens/login_screen.dart';
-import '/features/feed/presentation/screens/comments_screen.dart';
-import '/features/feed/presentation/screens/create_post_screen.dart';
 import '/core/screens/error_screen.dart';
+import '/core/screens/home_screen.dart';
 import '/features/auth/presentation/screens/create_account_screen.dart';
+import '/features/auth/presentation/screens/login_screen.dart';
 import '/features/auth/presentation/screens/verify_email_screen.dart';
+import '/features/post/presentation/screens/comments_screen.dart';
+import '/features/post/presentation/screens/create_post_screen.dart';
 
 class Routes {
   static Route onGenerateRoute(RouteSettings settings) {

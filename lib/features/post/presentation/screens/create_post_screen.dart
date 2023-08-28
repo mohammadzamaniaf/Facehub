@@ -1,15 +1,15 @@
 import 'dart:io';
 
-import 'package:facehub/core/screens/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '/core/screens/loader.dart';
 import '/core/utils/utils.dart';
 import '/features/auth/presentation/widgets/round_button.dart';
-import '/features/feed/presentation/widgets/mutli_image_picker.dart';
-import '/features/feed/presentation/widgets/profile_info.dart';
-import '/features/feed/providers/feed_provider.dart';
+import '/features/post/presentation/widgets/image_video_view.dart';
+import '/features/post/presentation/widgets/profile_info.dart';
+import '/features/post/providers/post_provider.dart';
 
 class CreatePostScreen extends ConsumerStatefulWidget {
   const CreatePostScreen({super.key});
@@ -27,7 +27,8 @@ class CreatePostScreenState extends ConsumerState<CreatePostScreen> {
   bool isLoading = false;
 
   // local variables
-  List<File> images = [];
+  File? file;
+  String fileType = 'image';
 
   @override
   void initState() {
@@ -75,17 +76,24 @@ class CreatePostScreenState extends ConsumerState<CreatePostScreen> {
                 minLines: 1,
               ),
               const SizedBox(height: 20),
-              // Multi image picker
-              MutliImagePickerWidget(
-                images: images,
-                onPressed: () async {
-                  final image = await pickImage(source: ImageSource.gallery);
-                  if (image != null) {
-                    images.add(image);
-                    setState(() {});
-                  }
-                },
-              ),
+              // Display Image or Video
+              file != null
+                  ? ImageVideoView(
+                      file: file!,
+                      fileType: fileType,
+                    )
+                  : PickFileWidget(
+                      pickImage: () async {
+                        fileType = 'image';
+                        file = await pickImage(source: ImageSource.gallery);
+                        setState(() {});
+                      },
+                      pickVideo: () async {
+                        fileType = 'video';
+                        file = await pickVideo(source: ImageSource.gallery);
+                        setState(() {});
+                      },
+                    ),
               const SizedBox(height: 20),
               isLoading
                   ? const Loader()
@@ -103,10 +111,11 @@ class CreatePostScreenState extends ConsumerState<CreatePostScreen> {
   Future<void> makePost() async {
     setState(() => isLoading = true);
     await ref
-        .read(feedProvider)
+        .read(postProvider)
         .makePost(
           content: _textController.text,
-          images: images,
+          file: file!,
+          postType: fileType,
         )
         .then((value) {
       Navigator.of(context).pop();
@@ -114,5 +123,33 @@ class CreatePostScreenState extends ConsumerState<CreatePostScreen> {
       setState(() => isLoading = false);
     });
     setState(() => isLoading = false);
+  }
+}
+
+class PickFileWidget extends StatelessWidget {
+  const PickFileWidget({
+    super.key,
+    required this.pickImage,
+    required this.pickVideo,
+  });
+
+  final VoidCallback pickImage;
+  final VoidCallback pickVideo;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        TextButton(
+          onPressed: pickImage,
+          child: const Text('Pick Image'),
+        ),
+        const Divider(),
+        TextButton(
+          onPressed: pickVideo,
+          child: const Text('Pick Video'),
+        ),
+      ],
+    );
   }
 }

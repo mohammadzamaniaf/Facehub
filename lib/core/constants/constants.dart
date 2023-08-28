@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '/features/feed/presentation/screens/news_feed_screen.dart';
+import '/features/post/presentation/screens/posts_screen.dart';
+import '/features/post/presentation/screens/videos_screen.dart';
 import '/features/settings/presentation/screens/settings_screen.dart';
 
 class Constants {
@@ -38,12 +39,6 @@ class Constants {
       ),
       Tab(
         icon: Icon(
-          index == 4 ? Icons.notifications : Icons.notifications_outlined,
-          color: Colors.blue,
-        ),
-      ),
-      Tab(
-        icon: Icon(
           index == 5 ? Icons.density_medium : Icons.density_medium_outlined,
           color: Colors.blue,
         ),
@@ -52,18 +47,13 @@ class Constants {
   }
 
   static const homeScreenTabBarChildren = [
-    NewsFeedScreen(),
+    PostsScreen(),
     Center(
       child: Text('Friends'),
     ),
-    Center(
-      child: Text('Videos'),
-    ),
+    VideosScreen(),
     Center(
       child: Text('Profile'),
-    ),
-    Center(
-      child: Text('Notifications'),
     ),
     SettingsScreen(),
   ];

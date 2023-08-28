@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '/core/constants/app_colors.dart';
-import '/features/feed/providers/feed_provider.dart';
+import '/features/post/providers/post_provider.dart';
 
 class CommentTextField extends ConsumerStatefulWidget {
   const CommentTextField({
@@ -35,7 +35,7 @@ class _CommentTextFieldState extends ConsumerState<CommentTextField> {
     // make a comment
     final text = controller.text.trim();
     controller.clear();
-    await ref.read(feedProvider).makeComment(
+    await ref.read(postProvider).makeComment(
           text: text,
           postId: widget.postId,
         );
