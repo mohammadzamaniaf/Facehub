@@ -1,3 +1,4 @@
+import 'package:facehub/features/auth/providers/get_user_info_by_user_id_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -48,7 +49,7 @@ class CommentHeader extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userInfo = ref.watch(getUserInfoProvider);
+    final userInfo = ref.watch(getUserInfoByUserIdProvider(comment.authorId));
 
     return userInfo.when(
       data: (userData) {

@@ -118,7 +118,7 @@ class CreatePostScreenState extends ConsumerState<CreatePostScreen> {
           postType: fileType,
         )
         .then((value) {
-      Navigator.of(context).pop();
+      // Navigator.of(context).pop();
     }).catchError((_) {
       setState(() => isLoading = false);
     });

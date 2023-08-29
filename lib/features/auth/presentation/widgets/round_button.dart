@@ -7,18 +7,20 @@ class RoundButton extends StatelessWidget {
     required this.onPressed,
     required this.label,
     this.color = AppColors.lightBlueColor,
+    this.height = 50,
   });
 
   final VoidCallback onPressed;
   final String label;
   final Color color;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onPressed,
       child: Container(
-        height: 50,
+        height: height,
         width: double.infinity,
         decoration: BoxDecoration(
           color: color,

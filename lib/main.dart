@@ -33,7 +33,7 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       onGenerateRoute: Routes.onGenerateRoute,
       home: StreamBuilder(
-        stream: FirebaseAuth.instance.userChanges(),
+        stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Loader();

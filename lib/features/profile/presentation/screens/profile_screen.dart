@@ -1,3 +1,5 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:facehub/features/auth/providers/get_user_info_as_stream_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,23 +10,25 @@ import '/core/constants/paddings.dart';
 import '/core/screens/error_screen.dart';
 import '/core/screens/loader.dart';
 import '/core/widgets/icon_text_button.dart';
+import '/features/auth/models/user.dart';
 import '/features/auth/presentation/widgets/round_button.dart';
-import '/features/auth/providers/get_user_info_by_user_id_provider.dart';
+import '/features/friends/provider/friend_provider.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({
-    super.key,
-    required this.userId,
-  });
+    Key? key,
+    this.userId,
+  }) : super(key: key);
 
-  final String userId;
+  final String? userId;
 
   static const routeName = '/profile';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final uid = userId ?? FirebaseAuth.instance.currentUser!.uid;
     final myUserId = FirebaseAuth.instance.currentUser!.uid;
-    final userInfo = ref.watch(getUserInfoByUserIdProvider(userId));
+    final userInfo = ref.watch(getUserInfoAsStreamProvider(uid));
     return userInfo.when(
       data: (user) {
         return SafeArea(
@@ -57,7 +61,7 @@ class ProfileScreen extends ConsumerWidget {
                   // profile button
                   userId == myUserId
                       ? _buildAddToStoryButotn()
-                      : _buildAddFriendButton(),
+                      : AddFriendButton(user: user),
                   const SizedBox(height: 20),
                   // User Profile Info
                   _buildProfileInfo(
@@ -79,11 +83,6 @@ class ProfileScreen extends ConsumerWidget {
       },
     );
   }
-
-  Widget _buildAddFriendButton() => RoundButton(
-        onPressed: () {},
-        label: 'Add Friend',
-      );
 
   Widget _buildAddToStoryButotn() => RoundButton(
         onPressed: () {},
@@ -114,4 +113,52 @@ class ProfileScreen extends ConsumerWidget {
           const SizedBox(height: 10),
         ],
       );
+}
+
+class AddFriendButton extends ConsumerStatefulWidget {
+  const AddFriendButton({
+    super.key,
+    required this.user,
+  });
+
+  final UserModel user;
+
+  @override
+  ConsumerState<AddFriendButton> createState() => _AddFriendButtonState();
+}
+
+class _AddFriendButtonState extends ConsumerState<AddFriendButton> {
+  bool isLoading = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final myUid = FirebaseAuth.instance.currentUser!.uid;
+    final requestSent = widget.user.receivedRequests.contains(myUid);
+    final alreadyFriend = widget.user.friends.contains(myUid);
+    return isLoading
+        ? const Loader()
+        : RoundButton(
+            onPressed: () async {
+              final provider = ref.read(friendProvider);
+              final userId = widget.user.uid;
+              setState(() => isLoading = true);
+              if (requestSent) {
+                // cancel request
+                provider.removeFriendRequest(userId: userId);
+              } else if (alreadyFriend) {
+                // remove friendship
+                provider.removeFriend(userId: userId);
+              } else {
+                // sent friend request
+                provider.sendFriendRequest(userId: userId);
+              }
+              setState(() => isLoading = false);
+            },
+            label: requestSent
+                ? 'Cancel Request'
+                : alreadyFriend
+                    ? 'Remove Friend'
+                    : 'Add Friend',
+          );
+  }
 }

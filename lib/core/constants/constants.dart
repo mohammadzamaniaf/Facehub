@@ -49,12 +49,12 @@ class Constants {
     ];
   }
 
-  static final screens = [
-    const PostsScreen(),
-    const FriendsScreen(),
-    const VideosScreen(),
-    ProfileScreen(userId: FirebaseAuth.instance.currentUser!.uid),
-    const SettingsScreen(),
+  static const screens = [
+    PostsScreen(),
+    FriendsScreen(),
+    VideosScreen(),
+    ProfileScreen(),
+    SettingsScreen(),
   ];
 
   Constants._();

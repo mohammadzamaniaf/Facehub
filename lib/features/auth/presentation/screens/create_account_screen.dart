@@ -173,7 +173,7 @@ class _CreateAccountScreenState extends ConsumerState<CreateAccountScreen> {
         password: _passwordController.text,
       )
           .then((credential) {
-        if (credential!.user!.emailVerified) {
+        if (!credential!.user!.emailVerified) {
           Navigator.of(context).pop();
         }
       }).catchError((_) {
