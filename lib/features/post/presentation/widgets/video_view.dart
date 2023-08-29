@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:cached_video_player/cached_video_player.dart';
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 
 class VideoView extends StatefulWidget {
   const VideoView({
@@ -16,14 +16,14 @@ class VideoView extends StatefulWidget {
 }
 
 class _VideoViewState extends State<VideoView> {
-  late final CachedVideoPlayerController _videoController;
+  late final VideoPlayerController _videoController;
 
   // local fields
   bool isPlaying = false;
 
   @override
   void initState() {
-    _videoController = CachedVideoPlayerController.file(widget.file!)
+    _videoController = VideoPlayerController.file(widget.file!)
       ..initialize().then((value) {
         setState(() {});
       });
@@ -42,7 +42,7 @@ class _VideoViewState extends State<VideoView> {
       aspectRatio: _videoController.value.aspectRatio,
       child: Stack(
         children: [
-          CachedVideoPlayer(
+          VideoPlayer(
             _videoController,
           ),
           Positioned(

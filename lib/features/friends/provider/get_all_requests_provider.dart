@@ -19,8 +19,8 @@ final getAllRequestsProvider =
       .where(FirebaseFieldNames.uid, isEqualTo: myUid)
       .limit(1)
       .snapshots()
-      .listen((doc) {
-    final userData = doc.docs.first.data();
+      .listen((snapshot) {
+    final userData = snapshot.docs.first.data();
     final requests = UserModel.fromMap(userData).receivedRequests;
     controller.sink.add(requests);
   });
