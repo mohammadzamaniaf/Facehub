@@ -1,4 +1,6 @@
+import 'package:facehub/features/story/models/story.dart';
 import 'package:facehub/features/story/presentation/screens/create_story_screen.dart';
+import 'package:facehub/features/story/presentation/screens/story_view_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -53,6 +55,9 @@ class Routes {
         return _cupertinoRoute(
           const CreateStoryScreen(),
         );
+      case StoryViewScreen.routeName:
+        final stories = settings.arguments as List<Story>;
+        return _cupertinoRoute(StoryViewScreen(stories: stories));
 
       default:
         return _materialRoute(

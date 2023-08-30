@@ -55,17 +55,17 @@ final getAllStoriesProvider =
   return controller.stream;
 });
 
-final getStoriesProvider = FutureProvider<Iterable<Story>>(
-  (ref) {
-    return FirebaseFirestore.instance
-        .collection('stories')
-        .snapshots()
-        .listen((snapshot) {
-      return snapshot.docs.map(
-        (storyData) => Story.fromMap(
-          storyData.data(),
-        ),
-      );
-    });
-  },
-);
+// final getStoriesProvider = FutureProvider<Iterable<Story>>(
+//   (ref) {
+//     return FirebaseFirestore.instance
+//         .collection('stories')
+//         .snapshots()
+//         .listen((snapshot) {
+//       return snapshot.docs.map(
+//         (storyData) => Story.fromMap(
+//           storyData.data(),
+//         ),
+//       );
+//     });
+//   },
+// );

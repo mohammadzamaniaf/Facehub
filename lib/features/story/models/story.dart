@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart' show immutable;
 
+import '/core/constants/firebase_field_names.dart';
+
 @immutable
 class Story {
   final String imageUrl;
@@ -18,21 +20,25 @@ class Story {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'imageUrl': imageUrl,
-      'createdAt': createdAt.millisecondsSinceEpoch,
-      'storyId': storyId,
-      'authorId': authorId,
-      'views': views,
+      FirebaseFieldNames.imageUrl: imageUrl,
+      FirebaseFieldNames.createdAt: createdAt.millisecondsSinceEpoch,
+      FirebaseFieldNames.storyId: storyId,
+      FirebaseFieldNames.authorId: authorId,
+      FirebaseFieldNames.views: views,
     };
   }
 
   factory Story.fromMap(Map<String, dynamic> map) {
     return Story(
-      imageUrl: map['imageUrl'] ?? '',
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] ?? 0),
-      storyId: map['storyId'] ?? '',
-      authorId: map['authorId'] ?? '',
-      views: List<String>.from((map['views'] ?? [])),
+      imageUrl: map[FirebaseFieldNames.imageUrl] ?? '',
+      createdAt: DateTime.fromMillisecondsSinceEpoch(
+        map[FirebaseFieldNames.createdAt] ?? 0,
+      ),
+      storyId: map[FirebaseFieldNames.storyId] ?? '',
+      authorId: map[FirebaseFieldNames.authorId] ?? '',
+      views: List<String>.from(
+        (map[FirebaseFieldNames.views] ?? []),
+      ),
     );
   }
 }

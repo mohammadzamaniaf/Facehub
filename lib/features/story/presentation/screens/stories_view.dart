@@ -1,3 +1,4 @@
+import 'package:facehub/features/story/presentation/screens/story_view_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -11,7 +12,7 @@ class StoriesView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // final storyData = ref.watch(getAllStoriesProvider);
-    final storyData = ref.watch(getStoriesProvider);
+    final storyData = ref.watch(getAllStoriesProvider);
 
     return storyData.when(
       data: (stories) {
@@ -20,7 +21,7 @@ class StoriesView extends ConsumerWidget {
             color: Colors.white,
             height: 200,
             child: ListView.builder(
-              itemCount: 1 + 1,
+              itemCount: stories.length + 1,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 if (index == 0) {
@@ -28,11 +29,19 @@ class StoriesView extends ConsumerWidget {
                   return const CreateStoryWidget();
                 }
 
-                final story = [stories].elementAt(index - 1);
+                final story = stories.elementAt(index - 1);
 
                 // Story Tile
-                return StoryTile(
-                  story: story,
+                return InkWell(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(
+                      StoryViewScreen.routeName,
+                      arguments: stories.toList(),
+                    );
+                  },
+                  child: StoryTile(
+                    story: story,
+                  ),
                 );
               },
             ),

@@ -1,5 +1,6 @@
-import 'package:facehub/features/story/models/story.dart';
 import 'package:flutter/material.dart';
+
+import '/features/story/models/story.dart';
 
 class StoryTile extends StatelessWidget {
   const StoryTile({
