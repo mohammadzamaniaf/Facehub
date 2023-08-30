@@ -1,4 +1,3 @@
-import 'package:facehub/features/auth/providers/get_user_info_by_user_id_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,7 +8,7 @@ import '/core/screens/error_screen.dart';
 import '/core/screens/loader.dart';
 import '/core/widgets/round_like_iocn.dart';
 import '/core/widgets/round_profile_tile.dart';
-import '/features/auth/providers/get_user_info_provider.dart';
+import '/features/auth/providers/get_user_info_by_user_id_provider.dart';
 import '/features/post/models/comment.dart';
 import '/features/post/providers/post_provider.dart';
 

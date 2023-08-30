@@ -28,11 +28,11 @@ class Story {
 
   factory Story.fromMap(Map<String, dynamic> map) {
     return Story(
-      imageUrl: map['imageUrl'] as String,
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
-      storyId: map['storyId'] as String,
-      authorId: map['authorId'] as String,
-      views: List<String>.from((map['views'] as List<String>)),
+      imageUrl: map['imageUrl'] ?? '',
+      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] ?? 0),
+      storyId: map['storyId'] ?? '',
+      authorId: map['authorId'] ?? '',
+      views: List<String>.from((map['views'] ?? [])),
     );
   }
 }

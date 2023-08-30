@@ -23,8 +23,8 @@ final getAllPostsProvider = StreamProvider.autoDispose<Iterable<Post>>(
         .listen(
       (snapshots) {
         final posts = snapshots.docs.map(
-          (doc) => Post.fromMap(
-            doc.data(),
+          (postData) => Post.fromMap(
+            postData.data(),
           ),
         );
         controller.sink.add(posts);

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 import '/core/constants/firebase_collection_names.dart';
+import '/core/constants/firebase_field_names.dart';
 import '/features/post/models/comment.dart';
 import '/features/post/models/post.dart';
 
@@ -70,7 +71,7 @@ class PostRepository {
             .collection(FirebaseCollectionNames.posts)
             .doc(postId)
             .update({
-          FirebaseCollectionNames.likes: FieldValue.arrayRemove(
+          FirebaseFieldNames.likes: FieldValue.arrayRemove(
             [authorId],
           )
         });
@@ -80,7 +81,7 @@ class PostRepository {
             .collection(FirebaseCollectionNames.posts)
             .doc(postId)
             .update({
-          FirebaseCollectionNames.likes: FieldValue.arrayUnion(
+          FirebaseFieldNames.likes: FieldValue.arrayUnion(
             [authorId],
           )
         });
@@ -141,7 +142,7 @@ class PostRepository {
             .collection(FirebaseCollectionNames.comments)
             .doc(commentId)
             .update({
-          FirebaseCollectionNames.likes: FieldValue.arrayRemove(
+          FirebaseFieldNames.likes: FieldValue.arrayRemove(
             [authorId],
           )
         });
@@ -151,7 +152,7 @@ class PostRepository {
             .collection(FirebaseCollectionNames.comments)
             .doc(commentId)
             .update({
-          FirebaseCollectionNames.likes: FieldValue.arrayUnion(
+          FirebaseFieldNames.likes: FieldValue.arrayUnion(
             [authorId],
           )
         });

@@ -1,3 +1,4 @@
+import 'package:facehub/features/story/presentation/screens/create_story_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -47,6 +48,10 @@ class Routes {
           ProfileScreen(
             userId: userId,
           ),
+        );
+      case CreateStoryScreen.routeName:
+        return _cupertinoRoute(
+          const CreateStoryScreen(),
         );
 
       default:

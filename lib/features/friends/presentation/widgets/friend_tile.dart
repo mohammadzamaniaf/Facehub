@@ -3,9 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '/core/screens/error_screen.dart';
 import '/core/screens/loader.dart';
-import '/features/auth/presentation/widgets/round_button.dart';
 import '/features/auth/providers/get_user_info_by_user_id_provider.dart';
-import '/features/friends/provider/friend_provider.dart';
 
 class FriendTile extends ConsumerWidget {
   const FriendTile({
