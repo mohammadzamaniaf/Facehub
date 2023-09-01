@@ -7,11 +7,13 @@ class IconTextButton extends StatelessWidget {
     required this.icon,
     required this.label,
     this.onPressed,
+    this.color,
   });
 
   final IconData icon;
   final String label;
   final VoidCallback? onPressed;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class IconTextButton extends StatelessWidget {
       onTap: onPressed,
       child: Row(
         children: [
-          FaIcon(icon, size: 20),
+          FaIcon(icon, size: 20, color: color),
           const SizedBox(width: 8),
           Text(label),
         ],

@@ -84,9 +84,8 @@ class FriendRepository {
           .collection(FirebaseCollectionNames.users)
           .doc(_myUid)
           .update({
-        FirebaseFieldNames.receivedRequests: FieldValue.arrayRemove(
-          [userId],
-        ),
+        FirebaseFieldNames.receivedRequests: FieldValue.arrayRemove([userId]),
+        FirebaseFieldNames.sentRequests: FieldValue.arrayRemove([userId]),
       });
 
       // Remove my user id from other person's sent requests
@@ -94,9 +93,8 @@ class FriendRepository {
           .collection(FirebaseCollectionNames.users)
           .doc(userId)
           .update({
-        FirebaseFieldNames.sentRequests: FieldValue.arrayRemove(
-          [_myUid],
-        ),
+        FirebaseFieldNames.receivedRequests: FieldValue.arrayRemove([_myUid]),
+        FirebaseFieldNames.sentRequests: FieldValue.arrayRemove([_myUid]),
       });
 
       return null;

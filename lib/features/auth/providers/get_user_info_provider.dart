@@ -16,35 +16,3 @@ final getUserInfoProvider = FutureProvider.autoDispose<UserModel>(
         );
   },
 );
-
-// final getUserInfoProvider = StreamProvider.autoDispose<UserModel>(
-//   (ref) {
-//     final userId = FirebaseAuth.instance.currentUser!.uid;
-
-//     final controller = StreamController<UserModel>();
-
-//     final sub = FirebaseFirestore.instance
-//         .collection(FirebaseCollectionNames.users)
-//         .where(FirebaseFieldNames.uid, isEqualTo: userId)
-//         .limit(1)
-//         .snapshots()
-//         .listen(
-//       (snapshot) {
-//         if (snapshot.docs.isNotEmpty) {
-//           final userData = snapshot.docs.first;
-//           final userModel = UserModel.fromMap(
-//             userData.data(),
-//           );
-//           controller.sink.add(userModel);
-//         }
-//       },
-//     );
-
-//     ref.onDispose(() {
-//       sub.cancel();
-//       controller.close();
-//     });
-
-//     return controller.stream;
-//   },
-// );

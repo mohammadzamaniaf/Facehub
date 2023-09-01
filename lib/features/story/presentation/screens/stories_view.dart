@@ -1,3 +1,5 @@
+import 'package:facehub/core/screens/error_screen.dart';
+import 'package:facehub/core/screens/loader.dart';
 import 'package:facehub/features/story/presentation/screens/story_view_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -50,12 +52,14 @@ class StoriesView extends ConsumerWidget {
       },
       error: (error, stackTrace) {
         return SliverToBoxAdapter(
-          child: Text(error.toString()),
+          child: ErrorScreen(
+            error: error.toString(),
+          ),
         );
       },
       loading: () {
         return const SliverToBoxAdapter(
-          child: Text('Loading'),
+          child: Loader(),
         );
       },
     );

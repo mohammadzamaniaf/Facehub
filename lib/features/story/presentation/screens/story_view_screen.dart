@@ -38,6 +38,7 @@ class _StoryViewScreenState extends State<StoryViewScreen> {
   @override
   Widget build(BuildContext context) {
     return StoryView(
+      onStoryShow: (storyItem) {},
       controller: controller,
       storyItems: storyItems,
       onComplete: Navigator.of(context).pop,

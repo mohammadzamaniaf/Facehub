@@ -1,3 +1,4 @@
+import 'package:facehub/core/constants/app_colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -99,6 +100,7 @@ class PostButtons extends ConsumerWidget {
               ? FontAwesomeIcons.solidThumbsUp
               : FontAwesomeIcons.thumbsUp,
           label: 'Like',
+          color: isLiked ? AppColors.blueColor : AppColors.blackColor,
         ),
         IconTextButton(
           onPressed: () {
@@ -131,16 +133,11 @@ class PostStatus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            const RoundLikeIcon(),
-            const SizedBox(width: 5),
-            Text('${likes.length}'),
-          ],
-        ),
-        const Text('20k Comments'),
+        const RoundLikeIcon(),
+        const SizedBox(width: 5),
+        Text('${likes.length}'),
       ],
     );
   }

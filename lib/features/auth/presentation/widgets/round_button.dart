@@ -10,7 +10,7 @@ class RoundButton extends StatelessWidget {
     this.height = 50,
   });
 
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final String label;
   final Color color;
   final double height;
@@ -23,7 +23,7 @@ class RoundButton extends StatelessWidget {
         height: height,
         width: double.infinity,
         decoration: BoxDecoration(
-          color: color,
+          color: onPressed == null ? Colors.transparent : color,
           borderRadius: BorderRadius.circular(25),
           border: Border.all(
             color: AppColors.darkBlueColor,
@@ -33,7 +33,7 @@ class RoundButton extends StatelessWidget {
           child: Text(
             label,
             style: TextStyle(
-              color: color == AppColors.lightBlueColor
+              color: (color == AppColors.lightBlueColor && onPressed != null)
                   ? AppColors.realWhiteColor
                   : AppColors.darkBlueColor,
               fontSize: 18,
