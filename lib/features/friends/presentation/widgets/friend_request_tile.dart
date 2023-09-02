@@ -26,15 +26,15 @@ class FriendRequestTile extends ConsumerWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              InkWell(
-                onTap: () {
-                  Navigator.of(context).pushNamed(
-                    ProfileScreen.routeName,
-                    arguments: userId,
-                  );
-                },
-                child: Expanded(
-                  flex: 1,
+              Expanded(
+                flex: 1,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(
+                      ProfileScreen.routeName,
+                      arguments: userId,
+                    );
+                  },
                   child: CircleAvatar(
                     radius: 40,
                     backgroundImage: NetworkImage(user.profilePicUrl),

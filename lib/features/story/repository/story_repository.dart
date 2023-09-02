@@ -50,6 +50,7 @@ class StoryRepository {
     }
   }
 
+  // Increase story view count
   Future<String?> viewStory({
     required String storyId,
   }) async {
