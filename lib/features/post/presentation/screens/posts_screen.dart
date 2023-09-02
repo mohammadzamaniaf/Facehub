@@ -1,3 +1,4 @@
+import 'package:facehub/core/screens/empty_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -39,6 +40,10 @@ class PostsList extends ConsumerWidget {
 
     return posts.when(
       data: (Iterable posts) {
+        if (posts.isEmpty) {
+          return const EmptyScreen(text: 'No posts found at the moment');
+        }
+
         return SliverList.separated(
           itemCount: posts.length,
           separatorBuilder: (context, index) => const SizedBox(height: 8),

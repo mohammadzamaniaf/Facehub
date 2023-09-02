@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '/core/screens/error_screen.dart';
 import '/core/screens/loader.dart';
+import '/core/screens/profile_screen.dart';
 import '/features/auth/providers/get_user_info_by_user_id_provider.dart';
 
 class FriendTile extends ConsumerWidget {
@@ -20,22 +21,30 @@ class FriendTile extends ConsumerWidget {
       data: (user) {
         return Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              CircleAvatar(
-                radius: 30,
-                backgroundImage: NetworkImage(user.profilePicUrl),
-              ),
-              const SizedBox(width: 15),
-              Text(
-                user.fullName,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
+          child: InkWell(
+            onTap: () {
+              Navigator.of(context).pushNamed(
+                ProfileScreen.routeName,
+                arguments: userId,
+              );
+            },
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                CircleAvatar(
+                  radius: 30,
+                  backgroundImage: NetworkImage(user.profilePicUrl),
                 ),
-              )
-            ],
+                const SizedBox(width: 15),
+                Text(
+                  user.fullName,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
+                )
+              ],
+            ),
           ),
         );
       },

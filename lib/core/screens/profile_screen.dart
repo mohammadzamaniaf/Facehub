@@ -1,10 +1,10 @@
+import 'package:facehub/core/constants/extensions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:jiffy/jiffy.dart';
 
 import '/core/constants/app_colors.dart';
-import '/core/constants/paddings.dart';
+import '/core/constants/constants.dart';
 import '/core/screens/error_screen.dart';
 import '/core/screens/loader.dart';
 import '/core/widgets/icon_text_button.dart';
@@ -42,7 +42,7 @@ class ProfileScreen extends ConsumerWidget {
                 : null,
             backgroundColor: AppColors.realWhiteColor,
             body: Padding(
-              padding: Paddings.defaultPadding,
+              padding: Constants.defaultPadding,
               child: Column(
                 children: [
                   // profile pic
@@ -110,7 +110,7 @@ class ProfileScreen extends ConsumerWidget {
           const SizedBox(height: 10),
           IconTextButton(
             icon: Icons.cake,
-            label: Jiffy.parseFromDateTime(birthDay).yMMMEd,
+            label: birthDay.yMMMEd(),
           ),
           const SizedBox(height: 10),
           IconTextButton(
@@ -149,18 +149,18 @@ class _AddFriendButtonState extends ConsumerState<AddFriendButton> {
             onPressed: requestReceived
                 ? null
                 : () async {
+                    setState(() => isLoading = true);
                     final provider = ref.read(friendProvider);
                     final userId = widget.user.uid;
-                    setState(() => isLoading = true);
                     if (requestSent) {
                       // cancel request
-                      provider.removeFriendRequest(userId: userId);
+                      await provider.removeFriendRequest(userId: userId);
                     } else if (alreadyFriend) {
                       // remove friendship
-                      provider.removeFriend(userId: userId);
+                      await provider.removeFriend(userId: userId);
                     } else {
                       // sent friend request
-                      provider.sendFriendRequest(userId: userId);
+                      await provider.sendFriendRequest(userId: userId);
                     }
                     setState(() => isLoading = false);
                   },

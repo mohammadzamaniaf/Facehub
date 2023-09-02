@@ -1,11 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '/core/screens/profile_screen.dart';
+import '/core/screens/settings_screen.dart';
 import '/features/friends/presentation/screens/friends_screen.dart';
 import '/features/post/presentation/screens/posts_screen.dart';
 import '/features/post/presentation/screens/videos_screen.dart';
-import '/features/profile/presentation/screens/profile_screen.dart';
-import '/features/settings/presentation/screens/settings_screen.dart';
 
 class Constants {
   static const String maleProfilePic =
@@ -13,6 +12,11 @@ class Constants {
 
   static const String profilePicBlank =
       'https://t3.ftcdn.net/jpg/05/16/27/58/240_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg';
+
+  static const defaultPadding = EdgeInsets.symmetric(
+    horizontal: 15,
+    vertical: 10,
+  );
 
   static List<Tab> getHomeScreenTabs(int index) {
     return [

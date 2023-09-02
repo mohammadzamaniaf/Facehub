@@ -1,12 +1,13 @@
-import 'package:facehub/core/constants/app_colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:jiffy/jiffy.dart';
 
+import '/core/constants/app_colors.dart';
+import '/core/constants/extensions.dart';
 import '/core/screens/error_screen.dart';
 import '/core/screens/loader.dart';
+import '/core/screens/profile_screen.dart';
 import '/core/widgets/icon_text_button.dart';
 import '/core/widgets/round_like_iocn.dart';
 import '/features/auth/providers/get_user_info_by_user_id_provider.dart';
@@ -14,7 +15,6 @@ import '/features/post/models/post.dart';
 import '/features/post/presentation/screens/comments_screen.dart';
 import '/features/post/presentation/widgets/post_image_video_view.dart';
 import '/features/post/providers/post_provider.dart';
-import '/features/profile/presentation/screens/profile_screen.dart';
 
 class PostTile extends StatelessWidget {
   const PostTile({
@@ -193,7 +193,7 @@ class PostHeader extends ConsumerWidget {
                     ),
                   ),
                   Text(
-                    Jiffy.parseFromDateTime(datePublished).fromNow(),
+                    datePublished.fromNow(),
                     style: const TextStyle(
                       fontSize: 14,
                       color: Colors.grey,

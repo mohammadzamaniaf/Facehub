@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '/core/screens/error_screen.dart';
 import '/core/screens/loader.dart';
+import '/core/screens/profile_screen.dart';
 import '/features/auth/presentation/widgets/round_button.dart';
 import '/features/auth/providers/get_user_info_by_user_id_provider.dart';
 import '/features/friends/provider/friend_provider.dart';
@@ -25,11 +26,19 @@ class FriendRequestTile extends ConsumerWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                flex: 1,
-                child: CircleAvatar(
-                  radius: 40,
-                  backgroundImage: NetworkImage(user.profilePicUrl),
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).pushNamed(
+                    ProfileScreen.routeName,
+                    arguments: userId,
+                  );
+                },
+                child: Expanded(
+                  flex: 1,
+                  child: CircleAvatar(
+                    radius: 40,
+                    backgroundImage: NetworkImage(user.profilePicUrl),
+                  ),
                 ),
               ),
               const SizedBox(width: 15),

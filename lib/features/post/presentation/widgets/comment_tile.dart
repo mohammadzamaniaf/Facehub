@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:jiffy/jiffy.dart';
 
 import '/core/constants/app_colors.dart';
+import '/core/constants/extensions.dart';
 import '/core/screens/error_screen.dart';
 import '/core/screens/loader.dart';
 import '/core/widgets/round_like_iocn.dart';
@@ -112,7 +112,7 @@ class CommentFooter extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              Jiffy.parseFromDateTime(comment.createdAt).fromNow(),
+              comment.createdAt.fromNow(),
             ),
             const SizedBox(width: 15),
             TextButton(

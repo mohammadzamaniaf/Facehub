@@ -1,3 +1,4 @@
+import 'package:facehub/core/screens/empty_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -15,6 +16,10 @@ class VideosScreen extends ConsumerWidget {
 
     return videos.when(
       data: (Iterable videos) {
+        if (videos.isEmpty) {
+          return const EmptyScreen(text: 'No video found.');
+        }
+
         return ListView.separated(
           itemCount: videos.length,
           separatorBuilder: (context, index) => const SizedBox(height: 8),

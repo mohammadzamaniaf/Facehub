@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '/core/constants/app_colors.dart';
 import '/core/constants/constants.dart';
-import '../../features/post/presentation/widgets/messenger_widget.dart';
-import '../../features/post/presentation/widgets/search_widget.dart';
+import '/features/post/presentation/widgets/messenger_widget.dart';
+import '/features/post/presentation/widgets/search_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

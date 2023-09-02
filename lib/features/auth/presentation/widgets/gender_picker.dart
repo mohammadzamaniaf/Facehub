@@ -1,8 +1,7 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/cupertino.dart';
 
 import '/core/constants/app_colors.dart';
-import '/core/constants/paddings.dart';
+import '/core/constants/constants.dart';
 import '/features/auth/presentation/widgets/gender_radio_tile.dart';
 
 class GenderPicker extends StatelessWidget {
@@ -18,7 +17,7 @@ class GenderPicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: Paddings.defaultPadding,
+      padding: Constants.defaultPadding,
       decoration: BoxDecoration(
         color: AppColors.darkWhiteColor,
         borderRadius: BorderRadius.circular(12),

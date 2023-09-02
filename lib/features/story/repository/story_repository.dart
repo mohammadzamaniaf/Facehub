@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart' show immutable;
 import 'package:uuid/uuid.dart';
 
 import '/core/constants/firebase_collection_names.dart';
+import '/core/constants/firebase_field_names.dart';
 import '/core/constants/storage_folder_names.dart';
 import '/features/story/models/story.dart';
 
@@ -42,6 +43,25 @@ class StoryRepository {
           .collection(FirebaseCollectionNames.stories)
           .doc(storyId)
           .set(story.toMap());
+
+      return null;
+    } catch (e) {
+      return e.toString();
+    }
+  }
+
+  Future<String?> viewStory({
+    required String storyId,
+  }) async {
+    try {
+      _firestore
+          .collection(FirebaseCollectionNames.stories)
+          .doc(storyId)
+          .update({
+        FirebaseFieldNames.views: FieldValue.arrayUnion(
+          [_myUid],
+        ),
+      });
 
       return null;
     } catch (e) {

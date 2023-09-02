@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '/core/constants/paddings.dart';
+import '/core/constants/constants.dart';
 import '/features/auth/presentation/screens/create_account_screen.dart';
 import '/features/auth/presentation/widgets/round_button.dart';
 import '/features/auth/presentation/widgets/round_text_field.dart';
@@ -54,9 +54,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: AppColors.loginScreenColor,
       body: Padding(
-        padding: Paddings.defaultPadding,
+        padding: Constants.defaultPadding,
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceAround,

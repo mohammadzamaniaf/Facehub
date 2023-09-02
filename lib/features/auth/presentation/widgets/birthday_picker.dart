@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:jiffy/jiffy.dart';
 
 import '/core/constants/app_colors.dart';
+import '/core/constants/extensions.dart';
 
 class BirthdayPicker extends StatelessWidget {
   const BirthdayPicker({
@@ -35,7 +35,7 @@ class BirthdayPicker extends StatelessWidget {
             ),
             const SizedBox(height: 5),
             Text(
-              Jiffy.parseFromDateTime(dateTime).yMMMMd,
+              dateTime.yMMMEd(),
               style: const TextStyle(
                 fontSize: 18,
                 color: AppColors.blackColor,

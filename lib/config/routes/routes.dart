@@ -1,17 +1,18 @@
-import 'package:facehub/features/story/models/story.dart';
-import 'package:facehub/features/story/presentation/screens/create_story_screen.dart';
-import 'package:facehub/features/story/presentation/screens/story_view_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '/core/screens/error_screen.dart';
 import '/core/screens/home_screen.dart';
+import '/core/screens/profile_screen.dart';
 import '/features/auth/presentation/screens/create_account_screen.dart';
 import '/features/auth/presentation/screens/login_screen.dart';
 import '/features/auth/presentation/screens/verify_email_screen.dart';
 import '/features/post/presentation/screens/comments_screen.dart';
 import '/features/post/presentation/screens/create_post_screen.dart';
-import '/features/profile/presentation/screens/profile_screen.dart';
+import '/features/post/presentation/widgets/post_image_video_view.dart';
+import '/features/story/models/story.dart';
+import '/features/story/presentation/screens/create_story_screen.dart';
+import '/features/story/presentation/screens/story_view_screen.dart';
 
 class Routes {
   static Route onGenerateRoute(RouteSettings settings) {
@@ -57,7 +58,14 @@ class Routes {
         );
       case StoryViewScreen.routeName:
         final stories = settings.arguments as List<Story>;
-        return _cupertinoRoute(StoryViewScreen(stories: stories));
+        return _cupertinoRoute(
+          StoryViewScreen(stories: stories),
+        );
+      case ImageView.routeName:
+        final imageUrl = settings.arguments as String;
+        return _cupertinoRoute(
+          ImageView(imageUrl: imageUrl),
+        );
 
       default:
         return _materialRoute(

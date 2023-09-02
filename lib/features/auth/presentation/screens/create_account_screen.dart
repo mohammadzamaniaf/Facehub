@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '/core/constants/app_colors.dart';
-import '/core/constants/paddings.dart';
+import '/core/constants/constants.dart';
 import '/core/utils/utils.dart';
 import '/features/auth/presentation/widgets/birthday_picker.dart';
 import '/features/auth/presentation/widgets/gender_picker.dart';
@@ -63,7 +63,7 @@ class _CreateAccountScreenState extends ConsumerState<CreateAccountScreen> {
       appBar: AppBar(),
       body: SingleChildScrollView(
         child: Padding(
-          padding: Paddings.defaultPadding,
+          padding: Constants.defaultPadding,
           child: Form(
             key: _formKey,
             child: Column(

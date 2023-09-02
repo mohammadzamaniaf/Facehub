@@ -1,9 +1,8 @@
-import 'package:facehub/core/screens/error_screen.dart';
-import 'package:facehub/core/screens/loader.dart';
-import 'package:facehub/features/story/presentation/screens/story_view_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '/core/screens/loader.dart';
+import '/features/story/presentation/screens/story_view_screen.dart';
 import '/features/story/presentation/widgets/create_story_widget.dart';
 import '/features/story/presentation/widgets/story_tile.dart';
 import '/features/story/provider/get_all_stories_provider.dart';
@@ -13,7 +12,6 @@ class StoriesView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final storyData = ref.watch(getAllStoriesProvider);
     final storyData = ref.watch(getAllStoriesProvider);
 
     return storyData.when(
@@ -52,8 +50,8 @@ class StoriesView extends ConsumerWidget {
       },
       error: (error, stackTrace) {
         return SliverToBoxAdapter(
-          child: ErrorScreen(
-            error: error.toString(),
+          child: Text(
+            error.toString(),
           ),
         );
       },
