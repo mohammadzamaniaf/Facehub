@@ -1,11 +1,10 @@
+import 'package:facehub/core/widgets/post_info_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:story_view/controller/story_controller.dart';
 import 'package:story_view/widgets/story_view.dart';
 
-import '/core/constants/extensions.dart';
-import '/features/friends/presentation/widgets/friend_tile.dart';
 import '/features/story/models/story.dart';
 import '/features/story/provider/story_provider.dart';
 
@@ -47,6 +46,8 @@ class _StoryViewScreenState extends State<StoryViewScreen> {
       storyItems: storyItems,
       onComplete: Navigator.of(context).pop,
       onVerticalSwipeComplete: Navigator.of(context).pop,
+      indicatorColor: Colors.black,
+      indicatorForegroundColor: Colors.grey,
     );
   }
 }
@@ -73,14 +74,7 @@ class _StoryDetailScreenState extends ConsumerState<StoryDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        toolbarHeight: kToolbarHeight + 20,
-        title: FriendTile(
-          userId: widget.story.authorId,
-        ),
-      ),
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
           Center(
@@ -94,34 +88,38 @@ class _StoryDetailScreenState extends ConsumerState<StoryDetailScreen> {
           ),
           // time posted
           Positioned(
-            top: 20,
-            left: 25,
-            child: Text(
-              widget.story.createdAt.fromNow(),
-              style: const TextStyle(
-                color: Colors.white,
-              ),
+            top: 50,
+            left: 0,
+            right: 0,
+            child: PostInfoTile(
+              datePublished: widget.story.createdAt,
+              userId: widget.story.authorId,
             ),
           ),
           Positioned(
             bottom: 10,
             left: 0,
             right: 0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const FaIcon(
-                  FontAwesomeIcons.eye,
-                  color: Colors.white,
-                ),
-                const SizedBox(width: 8),
-                Text(
-                  '${widget.story.views.length}',
-                  style: const TextStyle(
+            child: Container(
+              width: 100,
+              height: 50,
+              color: Colors.black54,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const FaIcon(
+                    FontAwesomeIcons.eye,
                     color: Colors.white,
                   ),
-                ),
-              ],
+                  const SizedBox(width: 8),
+                  Text(
+                    '${widget.story.views.length}',
+                    style: const TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
