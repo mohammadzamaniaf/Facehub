@@ -43,11 +43,11 @@ class VerifyEmailScreen extends ConsumerWidget {
           ElevatedButton(
             onPressed: () async {
               await FirebaseAuth.instance.currentUser!.reload();
-              final emailVerified =
-                  FirebaseAuth.instance.currentUser?.emailVerified;
-              if (emailVerified == true) {
-                Navigator.of(context).pushNamed(HomeScreen.routeName);
-              }
+              // final emailVerified =
+              //     FirebaseAuth.instance.currentUser?.emailVerified;
+              // if (emailVerified == true) {
+              //   Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
+              // }
             },
             child: const Text('Refresh'),
           ),
