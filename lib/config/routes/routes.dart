@@ -7,6 +7,8 @@ import '/core/screens/profile_screen.dart';
 import '/features/auth/presentation/screens/create_account_screen.dart';
 import '/features/auth/presentation/screens/login_screen.dart';
 import '/features/auth/presentation/screens/verify_email_screen.dart';
+import '/features/chat/presentation/screens/chat_screen.dart';
+import '/features/chat/presentation/screens/chats_screen.dart';
 import '/features/post/presentation/screens/comments_screen.dart';
 import '/features/post/presentation/screens/create_post_screen.dart';
 import '/features/post/presentation/widgets/post_image_video_view.dart';
@@ -65,6 +67,18 @@ class Routes {
         final imageUrl = settings.arguments as String;
         return _cupertinoRoute(
           ImageView(imageUrl: imageUrl),
+        );
+      case ChatsScreen.routeName:
+        return _cupertinoRoute(
+          const ChatsScreen(),
+        );
+      case ChatScreen.routeName:
+        final arguments = settings.arguments as Map<String, dynamic>;
+        final userId = arguments['userId'];
+        return _cupertinoRoute(
+          ChatScreen(
+            userId: userId,
+          ),
         );
 
       default:

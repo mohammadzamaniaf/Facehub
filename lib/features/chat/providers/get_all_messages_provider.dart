@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '/core/constants/firebase_collection_names.dart';
@@ -13,7 +12,6 @@ import '/features/chat/models/message.dart';
 /// chatroom document.
 final getAllMessagesProvider = StreamProvider.family
     .autoDispose<Iterable<Message>, String>((ref, String chatroomId) {
-  final myUid = FirebaseAuth.instance.currentUser!.uid;
   final controller = StreamController<Iterable<Message>>();
 
   final messages = FirebaseFirestore.instance

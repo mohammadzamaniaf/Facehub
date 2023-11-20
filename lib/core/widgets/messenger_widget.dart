@@ -1,3 +1,4 @@
+import 'package:facehub/features/chat/presentation/screens/chats_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -8,8 +9,13 @@ class MessengerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const RoundIconButton(
-      icon: FontAwesomeIcons.facebookMessenger,
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).pushNamed(ChatsScreen.routeName);
+      },
+      child: const RoundIconButton(
+        icon: FontAwesomeIcons.facebookMessenger,
+      ),
     );
   }
 }

@@ -5,8 +5,8 @@ import '/core/constants/firebase_field_names.dart';
 @immutable
 class Chatroom {
   final String chatroomId;
-  final String? lastMessage;
-  final DateTime? lastMessageTs;
+  final String lastMessage;
+  final DateTime lastMessageTs;
   final List<String> members;
   final DateTime createdAt;
 
@@ -22,9 +22,9 @@ class Chatroom {
     return <String, dynamic>{
       FirebaseFieldNames.chatroomId: chatroomId,
       FirebaseFieldNames.lastMessage: lastMessage,
-      FirebaseFieldNames.lastMessageTs: lastMessageTs?.millisecondsSinceEpoch,
+      FirebaseFieldNames.lastMessageTs: lastMessageTs.millisecondsSinceEpoch,
       FirebaseFieldNames.members: members,
-      FirebaseFieldNames.createdAt: createdAt,
+      FirebaseFieldNames.createdAt: createdAt.millisecondsSinceEpoch,
     };
   }
 
@@ -36,7 +36,7 @@ class Chatroom {
         map[FirebaseFieldNames.lastMessageTs] as int,
       ),
       members: List<String>.from(
-        (map[FirebaseFieldNames.members] as List<String>),
+        (map[FirebaseFieldNames.members] as List),
       ),
       createdAt: DateTime.fromMillisecondsSinceEpoch(
         map[FirebaseFieldNames.createdAt] as int,

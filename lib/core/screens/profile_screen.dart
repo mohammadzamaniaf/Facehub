@@ -1,17 +1,17 @@
-import 'package:facehub/core/constants/extensions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '/core/constants/app_colors.dart';
 import '/core/constants/constants.dart';
+import '/core/constants/extensions.dart';
 import '/core/screens/error_screen.dart';
 import '/core/screens/loader.dart';
+import '/core/widgets/add_friend_button.dart';
 import '/core/widgets/icon_text_button.dart';
-import '/features/auth/models/user.dart';
 import '/features/auth/presentation/widgets/round_button.dart';
 import '/features/auth/providers/get_user_info_as_stream_provider.dart';
-import '/features/friends/provider/friend_provider.dart';
+import '/features/chat/presentation/screens/chat_screen.dart';
 import '/features/story/presentation/screens/create_story_screen.dart';
 
 class ProfileScreen extends ConsumerWidget {
@@ -33,6 +33,7 @@ class ProfileScreen extends ConsumerWidget {
     );
     return userInfo.when(
       data: (user) {
+        final isMyProfile = user.uid == myUserId;
         return SafeArea(
           child: Scaffold(
             appBar: user.uid != myUserId
@@ -61,9 +62,25 @@ class ProfileScreen extends ConsumerWidget {
                   ),
                   const SizedBox(height: 20),
                   // profile button
-                  user.uid == myUserId
+                  isMyProfile
                       ? _buildAddToStoryButotn(context)
                       : AddFriendButton(user: user),
+                  const SizedBox(height: 20),
+                  // Chat Button
+                  isMyProfile
+                      ? const SizedBox()
+                      : RoundButton(
+                          onPressed: () {
+                            Navigator.of(context).pushNamed(
+                              ChatScreen.routeName,
+                              arguments: {
+                                'userId': user.uid,
+                              },
+                            );
+                          },
+                          label: 'Send Message',
+                          color: Colors.transparent,
+                        ),
                   const SizedBox(height: 20),
                   // User Profile Info
                   _buildProfileInfo(
@@ -120,55 +137,4 @@ class ProfileScreen extends ConsumerWidget {
           const SizedBox(height: 10),
         ],
       );
-}
-
-class AddFriendButton extends ConsumerStatefulWidget {
-  const AddFriendButton({
-    super.key,
-    required this.user,
-  });
-
-  final UserModel user;
-
-  @override
-  ConsumerState<AddFriendButton> createState() => _AddFriendButtonState();
-}
-
-class _AddFriendButtonState extends ConsumerState<AddFriendButton> {
-  bool isLoading = false;
-
-  @override
-  Widget build(BuildContext context) {
-    final myUid = FirebaseAuth.instance.currentUser!.uid;
-    final requestSent = widget.user.receivedRequests.contains(myUid);
-    final requestReceived = widget.user.sentRequests.contains(myUid);
-    final alreadyFriend = widget.user.friends.contains(myUid);
-    return isLoading
-        ? const Loader()
-        : RoundButton(
-            onPressed: requestReceived
-                ? null
-                : () async {
-                    setState(() => isLoading = true);
-                    final provider = ref.read(friendProvider);
-                    final userId = widget.user.uid;
-                    if (requestSent) {
-                      // cancel request
-                      await provider.removeFriendRequest(userId: userId);
-                    } else if (alreadyFriend) {
-                      // remove friendship
-                      await provider.removeFriend(userId: userId);
-                    } else {
-                      // sent friend request
-                      await provider.sendFriendRequest(userId: userId);
-                    }
-                    setState(() => isLoading = false);
-                  },
-            label: requestSent
-                ? 'Cancel Request'
-                : alreadyFriend
-                    ? 'Remove Friend'
-                    : 'Add Friend',
-          );
-  }
 }
